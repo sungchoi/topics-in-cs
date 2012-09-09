@@ -21,4 +21,23 @@ describe '#palindrome?' do
     "Roses are red. Violets are blue.".palindrome?.should eq false
   end
   
+  it "returns true for random palindromes" do
+    random_palindrome = create_random_palindrome
+    gibberish_palindrome.palindrome?.should eq true
+  end
+  
+  private
+  def create_random_palindrome
+    characters = ("a".."z").to_a + ["'", ",", ".", "?", "+", "-", "=", "|", " /", "<", ">", ":", "\"", "~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", " " ] 
+    string_length = rand(1000)
+    string = ""
+    string_length.times { string += characters[rand(52)]}
+    mirror = string.split("").reverse.join("")
+    random_palindrome = string + mirror
+  end
+  
+  def create_random_numerical_palindrome
+    
+  end
+  
 end

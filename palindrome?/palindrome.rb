@@ -1,5 +1,4 @@
-
-class String
+module StringPalindrome
 	def palindrome?
 	  this = self.downcase
 	  this = this.split(/\W/).join("")
@@ -10,4 +9,23 @@ class String
     end
         return true
 	end
+end
+
+module NumberPalindrome
+  def palindrome?
+    
+  end
+end
+
+
+class String
+  include StringPalindrome
+end
+
+class Fixnum
+  include NumberPalindrome
+end
+
+class Bignum
+  include NumberPalindrome
 end
