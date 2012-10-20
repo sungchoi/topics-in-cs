@@ -2,7 +2,7 @@ require_relative './triangle.rb'
 require 'rspec'
 include Triangle
 
-describe '#triangle?' do
+describe '#triangle?' do #NOTE: rewrite these tests to generate random sets of lengths for true and false triangles.
   context "given three side lengths" do
     it "returns true if it is a real triangle" do
       triangle?(1,2,2).should eq true
