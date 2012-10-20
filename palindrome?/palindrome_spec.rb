@@ -1,4 +1,4 @@
-require './palindrome.rb'
+require_relative './palindrome.rb'
 require 'rspec'
 
 describe '#palindrome?' do
@@ -23,7 +23,7 @@ describe '#palindrome?' do
   
   it "returns true for random palindromes" do
     random_palindrome = create_random_palindrome
-    gibberish_palindrome.palindrome?.should eq true
+    random_palindrome.palindrome?.should eq true
   end
   
   private
