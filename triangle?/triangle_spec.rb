@@ -5,13 +5,27 @@ include Triangle
 describe '#triangle?' do #NOTE: rewrite these tests to generate random sets of lengths for true and false triangles.
   context "given three side lengths" do
     it "returns true if it is a real triangle" do
-      triangle?(1,2,2).should eq true
-      triangle?(3,4,5).should eq true
-      triangle?(2,2,3).should eq true
+      side_a = rand(100)
+      side_b = rand(100)
+      side_c = rand( ((side_a - side_b).abs + 1 )..(side_a + side_b - 1) )
+      triangle?(side_a,side_b,side_c).should eq true
+      triangle?(side_a,side_c,side_b).should eq true
+      triangle?(side_b,side_a,side_c).should eq true
+      triangle?(side_b,side_c,side_a).should eq true
+      triangle?(side_c,side_a,side_b).should eq true
+      triangle?(side_c,side_b,side_a).should eq true
     end
     it "returns false if it cannot be a triangle" do
-      triangle?(1,1,2).should eq false
-      triangle?(1,1,100).should eq false
+      side_a = rand(100)
+      side_b = rand(100)
+      possible_third_side_lengths = (1..500).to_a - (((side_a - side_b).abs + 1 )..(side_a + side_b - 1)).to_a
+      side_c = possible_third_side_lengths[ rand(possible_third_side_lengths.length) ]
+      triangle?(side_a,side_b,side_c).should eq false
+      triangle?(side_a,side_c,side_b).should eq false
+      triangle?(side_b,side_a,side_c).should eq false
+      triangle?(side_b,side_c,side_a).should eq false
+      triangle?(side_c,side_a,side_a).should eq false
+      triangle?(side_c,side_b,side_a).should eq false
     end
   end
 end
