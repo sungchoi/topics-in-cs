@@ -2,22 +2,22 @@
 # Implement a method to count how many possible ways the child can run up the stairs.
 
 def count_possibilities(num_steps)
-  if num_step == 1
+  case num_steps
+  when 1
     1
-  elsif num_step == 2
+  when 2
     2
-  elsif num_step == 3
+  when 3
     3
-  elsif num_step == 4
+  when 4
     4
-  elsif num_step == 5
+  when 5
     5
-  elsif num_step == 6
+  when 6
     7
   else
     (num_steps / 6) * 7 + count_possibilities( num_steps % 6)
   end
-
 end
 
 # 1
