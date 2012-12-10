@@ -2,7 +2,9 @@
 # Implement a method to count how many possible ways the child can run up the stairs.
 
 def count_possibilities(num_steps)
-  if num_steps <= 5
+  if num_steps < 0 
+    puts "please enter a non-negative integer"
+  elsif num_steps <= 5
     num_steps
   elsif num_steps == 6
     7
