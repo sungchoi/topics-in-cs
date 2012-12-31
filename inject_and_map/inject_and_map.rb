@@ -40,7 +40,7 @@ end
 # item represents the same thing in both new_inject and in new_map.
 
 # When using the keyword yield, the method automatically expects a block and thus it does not need to be specified as an argument in the method definition.
-# Use &block_name when specifying blocks as arguments. For example, if you expect more than one block to be passed to the method. 
+# Use &block_name when specifying blocks as arguments.
 
 # & denotes a block, * denotes an optional parameter.
 # The & and * are only necessary to specify what kind of argument a variable is.
