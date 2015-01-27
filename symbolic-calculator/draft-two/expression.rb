@@ -100,11 +100,14 @@ module SymbolicCalculator
       case [@value, @left, @right.value]
       when  ["+", @left, 0],
             ["-", @left, 0],
-            ["*", @left, 1]
+            ["*", @left, 1],
+            ["**", @left, 1]
 
         @value = @left
-      when ["*", @left, 0]
+      when  ["*", @left, 0]
         @value = 0
+      when  ["**", @left, 0]
+        @value = 1
       when  ["+", @left, INFINITY],
             ["*", @left, INFINITY],
             ["/", @left, 0]
@@ -148,14 +151,5 @@ module SymbolicCalculator
     end
 
   end
-
-  INFINITY = "Infinity"
-  ARITHMETIC_TABLE = {
-    "+" => ->(left, right) { left + right },
-    "-" => ->(left, right) { left - right },
-    "*" => ->(left, right) { left * right },
-    "/" => ->(left, right) { left / right },
-    "**" => ->(left, right) { left ** right }
-  }
 
 end

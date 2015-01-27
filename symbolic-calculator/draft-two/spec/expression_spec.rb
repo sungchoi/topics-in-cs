@@ -36,10 +36,22 @@ describe SymbolicCalculator::Expression do
       expect(SymbolicCalculator::Expression.new("*", left, right).evaluate.to_s).to eq("x 3 **")
     end
 
-    it "does x x * x / => x 1 **" do
+    it "does x x * x / => x" do
       left  = SymbolicCalculator::Expression.new("*", SymbolicCalculator::Expression.new("x"), SymbolicCalculator::Expression.new("x")).evaluate
       right = SymbolicCalculator::Expression.new("x")
-      expect(SymbolicCalculator::Expression.new("/", left, right).evaluate.to_s).to eq("x 1 **")
+      expect(SymbolicCalculator::Expression.new("/", left, right).evaluate.to_s).to eq("x")
+    end
+
+    it "does x 1 ** => x" do
+      left  = SymbolicCalculator::Expression.new("x")
+      right = SymbolicCalculator::Expression.new(1)
+      expect(SymbolicCalculator::Expression.new("**", left, right).evaluate.to_s).to eq("x")
+    end
+
+    it "does x 0 ** => 1" do
+      left  = SymbolicCalculator::Expression.new("x")
+      right = SymbolicCalculator::Expression.new(0)
+      expect(SymbolicCalculator::Expression.new("**", left, right).evaluate.to_s).to eq("1")
     end
   end
 
