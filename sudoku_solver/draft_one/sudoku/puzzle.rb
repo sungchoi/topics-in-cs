@@ -36,9 +36,20 @@ module Sudoku
 
     def solve
 
-      if complete?
-
+      #update build_puzzle tool
+      if solved?
+        return puzzle # or recreate puzzle by going up through all parents to root.
+      elsif impossible?
+          #parent.next = Puzzle.new(puzzle)
+          parent.next.solve
       else
+        if head_child #depth first
+          head_child = Puzzle.new(puzzle)
+          head_child.solve
+        else
+          nxt = Puzzle.new(puzzle)
+          nxt.solve
+        end
       end
 
       first_array_index = puzzle.each_index do |index|
@@ -56,22 +67,6 @@ module Sudoku
         end
       end
 
-
-
-      if solved?
-        return puzzle # or recreate puzzle by going up through all parents to root.
-      elsif impossible?
-          #parent.next = Puzzle.new(puzzle)
-          parent.next.solve
-      else
-        if head_child #depth first
-          head_child = Puzzle.new(puzzle)
-          head_child.solve
-        else
-          nxt = Puzzle.new(puzzle)
-          nxt.solve
-        end
-      end
     end
 
     # @return [Boolean]
