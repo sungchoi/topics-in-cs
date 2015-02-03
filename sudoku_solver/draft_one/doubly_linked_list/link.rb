@@ -1,16 +1,8 @@
 module DoublyLinkedList
 
-  class Base
-
-    def initialize(value = nil)
-      if !value.is_a(Link)
-        link = Link.new(value)
-      else
-        link = value
-      end
-
-      @head = link
-      @tail = link
+    def initialize(nxt, prev)
+      @next = nxt
+      @prev = prev
     end
 
     def empty?
@@ -22,7 +14,7 @@ module DoublyLinkedList
     end
 
     def prepend(value)
-      link = Link.new(value)
+      link = self.class.new(value)
       if empty?
         @head = link
         @tail = link
@@ -69,16 +61,6 @@ module DoublyLinkedList
         link.next = link_at_index
         link.prev = link_at_index_prev
       end
-    end
-
-  end
-
-  class Link
-
-    def initialize(value = nil, prev = nil, nxt = nil)
-      @value = value
-      @prev = prev
-      @next = nxt
     end
 
   end

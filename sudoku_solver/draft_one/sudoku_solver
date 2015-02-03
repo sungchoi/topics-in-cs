@@ -90,14 +90,11 @@ puzzle.each do |pieces|
   pieces
 
 
-def solve(tree)
+def solve(tree) # solve(Puzzle.new(blocks))
   
   first_array_index = puzzle.each_index do |index|
     return index if piece[index].is_a?(Array)
     return nil if index = puzzle.length - 1
-  end
-
-
   end
 
   current_puzzle = puzzle.dup
@@ -113,17 +110,17 @@ def solve(tree)
 
 
   if solved?
-    return puzzle or recreate puzzle by going up through all parents to root.
+    return puzzle # or recreate puzzle by going up through all parents to root.
   elsif impossible?
-      #parent.next = Node.new(puzzle)
+      #parent.next = Puzzle.new(puzzle)
       parent.next.solve
   else
     if head_child #depth first
-      head_child = Node.new(puzzle)
+      head_child = Puzzle.new(puzzle)
       head_child.solve
     else
-      next = Node.new(puzzle)
-      next.solve
+      nxt = Puzzle.new(puzzle)
+      nxt.solve
     end
   end
 end
