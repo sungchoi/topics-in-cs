@@ -61,10 +61,10 @@ module Sudoku
         end
       else #possible
         if can_go_deeper? #depth first
-          append_child(Puzzle.new(@blocks, self, nil, nil, nil, nil, nil))
+          append_child(Puzzle.new(@blocks, self))
           @head.solve
         else
-          append_sibling(Puzzle.new(@blocks, @parent, nil, nil, self, nil, nil))
+          append_sibling(Puzzle.new(@blocks, @parent))
           @next.solve
         end
       end

@@ -10,10 +10,10 @@ module NTree
       @parent.nil?
     end
 
-    # @return [Node]
+    # @return [NTree]
     def head_child
       if @children
-        @children.head #@children.head.value
+        @children.head
       else
         nil
       end
