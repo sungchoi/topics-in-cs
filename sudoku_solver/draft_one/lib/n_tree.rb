@@ -1,10 +1,10 @@
 module NTree
 
-    def initialize(value, parent = nil, children = nil)
-      @value = value
-      @parent = parent
-      @children = children
-    end
+    # def initialize(value, parent = nil, children = nil)
+    #   @value = value
+    #   @parent = parent
+    #   @children = children
+    # end
 
     def root?
       @parent.nil?
@@ -51,7 +51,5 @@ module NTree
     def append_children(children)
       children.each { | child | append_child(child) }
     end
-
-  end
 
 end

@@ -1,23 +1,30 @@
 module DoublyLinkedList
 
-    def initialize(nxt, prev)
-      @next = nxt
-      @prev = prev
-    end
+    # def initialize(nxt, prev)
+    #   @next = nxt
+    #   @prev = prev
+    # end
 
     def empty?
       !@head
     end
 
-    def add(value)
-      prepend(value)
+    def head=(link)
+      prepend(link)
     end
 
-    def prepend(value)
-      link = self.class.new(value)
+    def tail=(link)
+      append(link)
+    end
+
+    # @param [DoublyLinkedList] link
+    def prepend(link)
+      # link = self.class.new(value)
       if empty?
         @head = link
         @tail = link
+        @next = nil
+        @prev = nil
       else
         old_head = @head
         @head = link
@@ -27,10 +34,12 @@ module DoublyLinkedList
     end
 
     def append(value)
-      link = Link.new(value)
+      # link = self.class.new(value)
       if empty?
         @head = link
         @tail = link
+        @next = nil
+        @prev = nil
       else
         old_tail = @tail
         @tail = link
@@ -39,8 +48,8 @@ module DoublyLinkedList
       end
     end
 
-    def insert(value, index)
-      link = Link.new(value)
+    def insert(link, index)
+      # link = self.class.new(value)
       if index == 0
         prepend(value)
       elsif index == -1
@@ -62,7 +71,5 @@ module DoublyLinkedList
         link.prev = link_at_index_prev
       end
     end
-
-  end
 
 end

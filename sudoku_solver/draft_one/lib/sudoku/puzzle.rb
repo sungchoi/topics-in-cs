@@ -1,21 +1,26 @@
 require 'matrix'
 
+require_relative '../n_tree'
+require_relative '../doubly_linked_list'
+
 module Sudoku
 
   class Puzzle
     include NTree
     include DoublyLinkedList
 
-    @@ROWS = [[0..8]
-              [9..17]
-              [18..26]
-              [27..35]
-              [36..44]
-              [45..53]
-              [54..62]
-              [63..71]
-              [72..80]]
+    @@ROWS = [(0..8),
+              (9..17),
+              (18..26),
+              (27..35),
+              (36..44),
+              (45..53),
+              (54..62),
+              (63..71),
+              (72..80)]
 
+    attr_accessor :parent, :children, :next, :prev
+    attr_reader :head, :tail, :last_sibling
     # @param [Array<Integer>] blocks
     # @param [Puzzle] parent
     # @param [Puzzle] children
@@ -24,12 +29,13 @@ module Sudoku
     # @param [Puzzle] head
     # @param [Puzzle] tail
     def initialize(blocks, parent = nil, children = nil, nxt = nil, prev = nil, head = nil, tail = nil)
-      first_array_index = first_array_index_of(blocks)
-      @last_sibling     = 
-      @current_blocks   = build_current_blocks(blocks, first_array_index)
-      @blocks           = format_blocks(blocks, first_array_index)
-      @puzzle           = build_puzzle
-      @parent           = parent
+      @first_array_index = first_array_index_of(blocks)                     # Integer or nil
+      @last_sibling     = set_last_sibling(blocks, @first_array_index)      # Boolean
+      @current_blocks   = build_current_blocks(blocks, @first_array_index)  # ex. [0, 2, 0, 8, 4, 0, 0, 9, 7, 3, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 7, 0, 2, 0, 1, 0, 0, 9, 0, 8, 2, 0, 0, 3, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 6, 0, 0, 4, 7, 0, 8, 0, 0, 5, 0, 7, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 5, 4, 6, 0, 0, 8, 2, 0, 7, 0]
+      @blocks           = format_blocks(blocks, @first_array_index)         #arrays
+                                                                            # ex. [[1, 2, 3, 4, 5, 6, 7, 8, 9], 2, [1, 2, 3, 4, 5, 6, 7, 8, 9], 8, 4, [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], 9, 7, 3, [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], 5, [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], 7, [1, 2, 3, 4, 5, 6, 7, 8, 9], 2, [1, 2, 3, 4, 5, 6, 7, 8, 9], 1, [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], 9, [1, 2, 3, 4, 5, 6, 7, 8, 9], 8, 2, [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], 3, [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], 1, [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], 9, [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], 6, [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], 4, 7, [1, 2, 3, 4, 5, 6, 7, 8, 9], 8, [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], 5, [1, 2, 3, 4, 5, 6, 7, 8, 9], 7, [1, 2, 3, 4, 5, 6, 7, 8, 9], 2, [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], 1, [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], 5, 4, 6, [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9], 8, 2, [1, 2, 3, 4, 5, 6, 7, 8, 9], 7, [1, 2, 3, 4, 5, 6, 7, 8, 9]]
+      @puzzle           = build_puzzle                                      # Matrix
+      @parent           = parent                                            
       @children         = children
       @next             = nxt
       @prev             = prev
@@ -43,25 +49,22 @@ module Sudoku
 
       # start from most concrete base, end case: solved
       if solved?
-        return puzzle
+        return @puzzle
       elsif impossible?
         # TODO
-        if @last_sibling
-          @parent.next = Puzzle.new(@blocks, @parent.parent,)
+        if last_sibling?
+          @parent.append_sibling(Puzzle.new(@blocks, @parent.parent))
           @parent.next.solve
         else
-          @next = Puzzle.new(@blocks, @parent, )
+          append_sibling(Puzzle.new(@blocks, @parent))
           @next.solve
         end
-        # next or parent.next?
-          # @parent.next = Puzzle.new(puzzle, @parent.parent, )
-          # @parent.next.solve
-      else
-        if head_child #depth first
-          head_child = Puzzle.new(@blocks, self, nil, nil, nil, nil, nil)
-          head_child.solve
+      else #possible
+        if can_go_deeper? #depth first
+          append_child(Puzzle.new(@blocks, self, nil, nil, nil, nil, nil))
+          @head.solve
         else
-          @next = Puzzle.new(@blocks, @parent, nil, nil, self, nil, nil)
+          append_sibling(Puzzle.new(@blocks, @parent, nil, nil, self, nil, nil))
           @next.solve
         end
       end
@@ -70,6 +73,10 @@ module Sudoku
     # @return [String]
     def to_s
       # TODO
+    end
+
+    def to_a
+      @current_blocks
     end
 
     # @return [Boolean]
@@ -86,12 +93,12 @@ module Sudoku
     #   and n2 = number of rows in a minor = 3
     # @return [Boolean]
     def impossible?
-      @blocks.each do |block, block_index|
+      @blocks.each_index do |block_index|
         puzzle_index = block_index_to_puzzle_index(block_index)
         row_index, column_index = puzzle_index
-        if  block.impossible_row?(row_index) ||
-            block.impossible_column?(column_index) ||
-            block.impossible_square?(block_index)
+        if  impossible_row?(row_index) ||
+            impossible_column?(column_index) ||
+            impossible_square?(block_index)
 
           return true # return breaks loop
         end
@@ -100,24 +107,61 @@ module Sudoku
       return false
     end
 
+    def last_sibling?
+      @last_sibling
+    end
 
-    def first_array_index_of(blocks)
-      blocks.each_index do |index|
-        return index if blocks[index].is_a?(Array)
-        return nil if index = puzzle.length - 1
+    def can_go_deeper?
+      !complete?
+    end
+
+    def append_child(child)
+      append(child)
+    end
+
+    def prepend_child(child)
+      prepend(child)
+    end
+
+    def append_sibling(sibling)
+      if @parent
+        @parent.append(sibling)
+      else
+        @next = sibling
+        sibling.prev = self
       end
     end
 
-
-    def last_sibling?(blocks, first_array_index)
-      first_array_index && blocks[first_array_index].length = 1
+    def prepend_sibling(sibling)
+      if @parent
+        @parent.prepend(sibling)
+      else
+        @prev = sibling
+        sibling.next = self
+      end
     end
 
+    private
+    # @runtime linear up to a max n of 81
+    # @runtime BigO(1) constant
+    def first_array_index_of(blocks)
+      blocks.each_index do |index|
+        return index if blocks[index].is_a?(Array)
+        return nil if index == 80
+      end
+    end
+
+    private
+    def set_last_sibling(blocks, first_array_index)
+      first_array_index && blocks[first_array_index].length == 1
+    end
+
+    private
     def build_current_blocks(blocks, first_array_index)
       # current_blocks = blocks.dup
       current_blocks = blocks
       if first_array_index
-        if blocks[first_array_index].length = 1
+        if blocks[first_array_index].length == 1
           current_blocks[first_array_index] = current_blocks[first_array_index][0]
           @last_sibling = true
         else
@@ -128,9 +172,10 @@ module Sudoku
       return current_blocks.map { |e| 0 if e.is_a?(Array)}
     end
 
+    private
     def format_blocks(blocks, first_array_index)
       if first_array_index
-        if blocks[first_array_index].length = 1
+        if blocks[first_array_index].length == 1
           blocks[first_array_index] = blocks[first_array_index][0]
           @last_sibling = true
         else
@@ -145,7 +190,8 @@ module Sudoku
     # @runtime linear
     # @return [Matrix]
     def build_puzzle
-      Matrix.rows(@@ROWS.map { |row| @current_blocks[row] })
+      rows = @@ROWS.inject([]) { |rows, range| rows << @current_blocks[range] }
+      Matrix.rows(rows)
     end
 
     private
@@ -168,47 +214,45 @@ module Sudoku
     end
 
     private
-    # @runtime linear
-    # @runtime BigO(n)
+    # @runtime constant
+    # @runtime BigO(1)
+    # @runtime T(2)
     # @return [Boolean]
     def complete?
-      @blocks.each { |e| return false if e.is_a?(Array) }
-      return true
+      # @blocks.each { |e| return false if e.is_a?(Array) }
+      # Probaly simpler to use: @first_array_index == nil or 80
+      # @current_blocks.each { |e| return false if e == 0 }
+
+      !@first_array_index || @first_array_index == 80
+
+      # return true
       #no empty blocks, i.e. zeros
     end
 
     private
-    # @runtime linear
-    # @runtime BigO(n)
-    # @runtime Theta(2n) #check this
+    # @runtime linear up to a max n of 18
+    # @runtime BigO(1)
+    # @runtime T(2n)
     # @return [Boolean]
     def impossible_row?(row_index)
-      @puzzle.row(row_index)
-        .group_by { |e| e}
-        .each { |e| return true if e.size > 1 }
-
-      return false
+      @puzzle.row(row_index).group_by { |e| e}.length < 9
     end
 
     private
-    # @runtime linear
-    # @runtime BigO(n)
-    # @runtime Theta(2n) #check this
+    # @runtime linear up to max n of 18
+    # @runtime BigO(1)
+    # @runtime T(2n)
     # @return [Boolean]
     def impossible_column?(column_index)
-      @puzzle.column(column_index)
-        .group_by { |e| e }
-        .each { |e| return true if e.size > 1 }
-
-      return false
+      @puzzle.column(column_index).group_by { |e| e }.length < 9
     end
 
     private
-    # @runtime linear
-    # @runtime BigO(n)
-    # @runtime Theta(n1 * 2n2) #check this
-    #   where n1 is the number of rows in puzzle minor 
-    #   and n2 is size of elements in puzzle minor 
+    # @runtime linear up to a max of 21
+    # @runtime BigO(1)
+    # @runtime T(n1 + 2n2)
+    #   where n1 is the number of rows in puzzle minor (3)
+    #   and n2 is size of elements in puzzle minor (9)
     # @return [Boolean]
     def impossible_square?(block_index)
       block_index_to_puzzle_minor(block_index)
