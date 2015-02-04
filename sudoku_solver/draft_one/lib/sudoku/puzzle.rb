@@ -24,49 +24,52 @@ module Sudoku
     # @param [Puzzle] head
     # @param [Puzzle] tail
     def initialize(blocks, parent = nil, children = nil, nxt = nil, prev = nil, head = nil, tail = nil)
-      @blocks   = blocks
-      @puzzle   = build_puzzle
-      @parent   = parent
-      @children = children
-      @next     = nxt
-      @prev     = prev
-      @head     = head #head of children
-      @tail     = tail #tail of children
+      first_array_index = first_array_index_of(blocks)
+      @last_sibling     = 
+      @current_blocks   = build_current_blocks(blocks, first_array_index)
+      @blocks           = format_blocks(blocks, first_array_index)
+      @puzzle           = build_puzzle
+      @parent           = parent
+      @children         = children
+      @next             = nxt
+      @prev             = prev
+      @head             = head #head of children
+      @tail             = tail #tail of children
     end
 
     def solve
-
+      # TODO
       #update build_puzzle tool
+
+      # start from most concrete base, end case: solved
       if solved?
-        return puzzle # or recreate puzzle by going up through all parents to root.
+        return puzzle
       elsif impossible?
-          #parent.next = Puzzle.new(puzzle)
-          parent.next.solve
+        # TODO
+        if @last_sibling
+          @parent.next = Puzzle.new(@blocks, @parent.parent,)
+          @parent.next.solve
+        else
+          @next = Puzzle.new(@blocks, @parent, )
+          @next.solve
+        end
+        # next or parent.next?
+          # @parent.next = Puzzle.new(puzzle, @parent.parent, )
+          # @parent.next.solve
       else
         if head_child #depth first
-          head_child = Puzzle.new(puzzle)
+          head_child = Puzzle.new(@blocks, self, nil, nil, nil, nil, nil)
           head_child.solve
         else
-          nxt = Puzzle.new(puzzle)
-          nxt.solve
+          @next = Puzzle.new(@blocks, @parent, nil, nil, self, nil, nil)
+          @next.solve
         end
       end
+    end
 
-      first_array_index = puzzle.each_index do |index|
-        return index if piece[index].is_a?(Array)
-        return nil if index = puzzle.length - 1
-      end
-
-      current_puzzle = puzzle.dup
-      if first_array_index
-        if puzzle[first_array_index].length = 1
-          current_puzzle[first_array_index] = puzzle[first_array_index][0]
-          puzzle[first_array_index] = puzzle[first_array_index][0]
-        else
-          current_puzzle[first_array_index] = puzzle[first_array_index].pop
-        end
-      end
-
+    # @return [String]
+    def to_s
+      # TODO
     end
 
     # @return [Boolean]
@@ -97,11 +100,52 @@ module Sudoku
       return false
     end
 
+
+    def first_array_index_of(blocks)
+      blocks.each_index do |index|
+        return index if blocks[index].is_a?(Array)
+        return nil if index = puzzle.length - 1
+      end
+    end
+
+
+    def last_sibling?(blocks, first_array_index)
+      first_array_index && blocks[first_array_index].length = 1
+    end
+
+    def build_current_blocks(blocks, first_array_index)
+      # current_blocks = blocks.dup
+      current_blocks = blocks
+      if first_array_index
+        if blocks[first_array_index].length = 1
+          current_blocks[first_array_index] = current_blocks[first_array_index][0]
+          @last_sibling = true
+        else
+          current_blocks[first_array_index] = current_blocks[first_array_index].pop
+        end
+      end
+
+      return current_blocks.map { |e| 0 if e.is_a?(Array)}
+    end
+
+    def format_blocks(blocks, first_array_index)
+      if first_array_index
+        if blocks[first_array_index].length = 1
+          blocks[first_array_index] = blocks[first_array_index][0]
+          @last_sibling = true
+        else
+          blocks[first_array_index].pop
+        end
+      end
+
+      return blocks
+    end
+
     private
     # @runtime linear
     # @return [Matrix]
     def build_puzzle
-      Matrix.rows(@@ROWS.map { |row| @blocks[row] })
+      Matrix.rows(@@ROWS.map { |row| @current_blocks[row] })
     end
 
     private
