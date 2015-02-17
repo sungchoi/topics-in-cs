@@ -1,4 +1,4 @@
-require_relative '../../queue'
+require_relative '../queue'
 
 describe Queue do
 

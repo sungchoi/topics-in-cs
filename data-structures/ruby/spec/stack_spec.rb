@@ -1,4 +1,4 @@
-require_relative '../../stack'
+require_relative '../stack'
 
 describe Stack do
   before(:each){ @stack_a = Stack.new() }
