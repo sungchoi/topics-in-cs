@@ -22,27 +22,27 @@ module BinaryTree
     end
 
     def each(&block)
-      pre_order(block)
+      pre_order(&block)
     end
 
     # Implement pre-order traversal of the tree
     def pre_order(&block)
       block.call(self.value)
-      left.pre_order(block)
-      right.pre_order(block)
+      left.pre_order(&block) if left
+      right.pre_order(&block) if right
     end
 
     # Implement in-order traversal of the tree
     def in_order(&block)
-      left.in_order(block)
+      left.in_order(&block) if left
       block.call(self.value)
-      right.in_order(block)
+      right.in_order(&block) if right
     end
 
     # Implement post-order traversal of the tree
     def post_order(&block)
-      left.post_order(block)
-      right.post_order(block)
+      left.post_order(&block) if left
+      right.post_order(&block) if right
       block.call(self.value)
     end
 
