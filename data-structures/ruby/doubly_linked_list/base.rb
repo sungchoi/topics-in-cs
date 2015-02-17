@@ -13,7 +13,7 @@ module DoublyLinkedList
       empty = DoublyLinkedList::Empty.new()
       @head = empty
       @tail = empty
-      @length = calculate_length
+      @length = 0
     end
 
     def tail
