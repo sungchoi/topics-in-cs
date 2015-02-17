@@ -74,6 +74,14 @@ module DoublyLinkedList
       self
     end
 
+    def unshift_all(enumerable)
+      #TODO
+    end
+
+    def insert
+      #TODO
+    end
+
     def remove_from_tail
       return UnderflowError.new("Underflow Error: Linked List is empty") if empty?
       removed = @tail
@@ -88,10 +96,6 @@ module DoublyLinkedList
 
       @length -= 1
       removed.value
-    end
-
-    def insert
-      #TODO
     end
 
     def peek

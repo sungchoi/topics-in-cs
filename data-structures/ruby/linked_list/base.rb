@@ -73,6 +73,10 @@ module LinkedList
       self
     end
 
+    def unshift_all(enumerable)
+      #TODO
+    end
+
     def insert
       #TODO
     end
