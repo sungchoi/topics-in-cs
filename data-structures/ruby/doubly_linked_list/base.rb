@@ -8,7 +8,7 @@ module DoublyLinkedList
     include DoublyLinkedList
     include Enumerable
 
-    attr_accessor :head, :tail, :length
+    attr_reader :head, :tail, :length
     def initialize()
       empty = DoublyLinkedList::Empty.new()
       @head = empty
