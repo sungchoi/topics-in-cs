@@ -23,7 +23,7 @@ module DoublyLinkedList
     def calculate_length
       length = 0
       placeholder = @head
-      until placeholder.is_a?(DoublyLinkedList::Empty) do
+      until placeholder.empty? do
         length += 1
         placeholder = placeholder.next
       end
@@ -32,10 +32,10 @@ module DoublyLinkedList
 
     def find_tail
       placeholder = @head
-      if placeholder.is_a?(DoublyLinkedList::Empty)
+      if placeholder.empty?
         @head
       else
-        until placeholder.next.is_a?(DoublyLinkedList::Empty) do
+        until placeholder.next.empty? do
           placeholder.next
         end
         placeholder
@@ -44,7 +44,7 @@ module DoublyLinkedList
 
     def each(&block)
       placeholder = @head
-      until placeholder.is_a?(DoublyLinkedList::Empty) do
+      until placeholder.empty? do
         block.call(placeholder.value)
         placeholder = placeholder.next
       end
@@ -61,7 +61,7 @@ module DoublyLinkedList
 
     def unshift(value)
       node = DoublyLinkedListNode(value, @head)
-      if @head.is_a?(Empty)
+      if @head.empty?
         @head = node
         @tail = node
       else
@@ -83,7 +83,7 @@ module DoublyLinkedList
     end
 
     def remove_from_tail
-      return UnderflowError.new("Underflow Error: Linked List is empty") if empty?
+      raise UnderflowError.new("Underflow Error: Linked List is empty") if empty?
       removed = @tail
       empty = @tail.next
       if @length == 1
@@ -103,14 +103,14 @@ module DoublyLinkedList
     end
 
     def empty?
-      @head.is_a?(DoublyLinkedList::Empty)
+      @head.empty?
     end
 
     def ==(other)
       return false if !other.instance_of?(self.class) || length != other.length
       placeholder_one = head
       placeholder_two = other.head
-      while !placeholder_one.is_a?(DoublyLinkedList::Empty)
+      while !placeholder_one.empty?
         return false if placeholder_one.value != placeholder_two.value
         placeholder_one = placeholder_one.next
         placeholder_two = placeholder_two.next

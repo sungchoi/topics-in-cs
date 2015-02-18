@@ -20,5 +20,9 @@ module DoublyLinkedList
       #TODO
     end
 
+    def empty?
+      false
+    end
+
   end
 end
