@@ -1,23 +1,20 @@
-require_relative 'doubly_linked_list/base'
+require_relative 'linked_list/base'
 
 class Queue
 
-  class UnderflowError < StandardError
-  end
-
   def initialize()
-    @list = DoublyLinkedList::Base.new()
+    @list = LinkedList::Base.new()
   end
 
   def enqueue(value)
-    @list.unshift(value)
+    @list.prepend(value)
 
     self
   end
 
   def dequeue
-    return UnderflowError.new("Underflow Error: Queue is empty") if empty?
-    @list.remove_from_tail
+    raise StandardError.new("Queue is empty") if empty?
+    @list.shift
   end
 
   def peek
