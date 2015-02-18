@@ -9,6 +9,7 @@ module DoublyLinkedList
     include Enumerable
 
     attr_reader :head, :tail, :length
+
     def initialize()
       empty = DoublyLinkedList::Empty.new()
       @head = empty
@@ -83,7 +84,7 @@ module DoublyLinkedList
     end
 
     def remove_from_tail
-      raise UnderflowError.new("Underflow Error: Linked List is empty") if empty?
+      raise StandardError.new("Linked List is empty") if empty?
       removed = @tail
       empty = @tail.next
       if @length == 1
