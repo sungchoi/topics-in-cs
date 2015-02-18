@@ -48,6 +48,13 @@ class BinaryTreeNode
     block.call(self.value)
   end
 
+  def size?(memo = 0)
+    memo += 1
+    memo = left.size?(memo) if left
+    memo = right.size?(memo) if right
+    memo
+  end
+
   def ==(other)
     return false if !other.instance_of?(self.class)
     #TODO

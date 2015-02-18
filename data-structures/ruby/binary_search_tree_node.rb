@@ -85,11 +85,4 @@ class BinarySearchTreeNode < BinaryTreeNode
     right.sorted? if right
   end
 
-  def size?(memo = 0)
-    memo += 1
-    memo = left.size?(memo) if left
-    memo = right.size?(memo) if right
-    memo
-  end
-
 end

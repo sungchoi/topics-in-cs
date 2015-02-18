@@ -39,7 +39,8 @@ class BinarySearchTree
   end
 
   def size?
-    # TODO: Calculate Size
+    return 0 if @root.nil?
+    @root.size?
   end
 
 end
