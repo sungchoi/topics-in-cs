@@ -1,7 +1,7 @@
-require_relative '../../binary_tree/node'
+require_relative '../binary_tree_node'
 
-describe BinaryTree::Node do
-  let(:tree) { BinaryTree::Node.new(2, BinaryTree::Node.new(1), BinaryTree::Node.new(3)) }
+describe BinaryTreeNode do
+  let(:tree) { BinaryTreeNode.new(2, BinaryTreeNode.new(1), BinaryTreeNode.new(3)) }
 
   it "#value" do
     #TODO
@@ -10,13 +10,13 @@ describe BinaryTree::Node do
 
   it "#left" do
     #TODO
-    expect(tree.left == BinaryTree::Node.new(1)).to eq(true)
-    expect(tree.right == BinaryTree::Node.new(3)).to eq(true)
-    expect(tree == BinaryTree::Node.new(2)).to eq(false)
+    expect(tree.left).to  eq(BinaryTreeNode.new(1))
+    expect(tree).to       eq(BinaryTreeNode.new(2))
   end
- 
+
   it "#right" do
     #TODO
+    expect(tree.right).to eq(BinaryTreeNode.new(3))
   end
 
   it "#children" do

@@ -1,21 +1,21 @@
-def BinaryTreeNode(value, parent = nil, left = nil, right = nil)
+def BinaryTreeNode(value, left = nil, right = nil, parent = nil)
   case value
   when BinaryTreeNode
     value
   else
-    BinaryTreeNode.new(value, parent, left, right)
+    BinaryTreeNode.new(value, left, right, parent)
   end
 end
 
 class BinaryTreeNode
 
-  attr_accessor :value, :parent, :left, :right
+  attr_reader :value, :left, :right, :parent
 
-  def initialize(value = nil, parent = nil, left = nil, right = nil)
+  def initialize(value = nil, left = nil, right = nil, parent = nil)
     @value = value
-    @parent = parent
     @left  = left
     @right = right
+    @parent = parent
   end
 
   # @return [Array<BinaryTree::Node>]
