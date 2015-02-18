@@ -48,6 +48,20 @@ module LinkedList
       self
     end
 
+    def prepend(value)
+      node = LinkedListNode(value)
+      if empty?
+        @head = node
+        @tail = node
+        @tail.next = nil
+      else
+        @tail.insert_after(node)
+      end
+
+      @length += 1
+      self
+    end
+
     def unshift_all(enumerable)
       #TODO
     end
@@ -64,7 +78,7 @@ module LinkedList
       @head.empty?
     end
 
-    def calculate_length
+    def length?
       length = 0
       placeholder = @head
       until placeholder.empty? do

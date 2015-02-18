@@ -3,7 +3,10 @@ require_relative 'linked_list_node'
 module LinkedList
   class Node
 
-    attr_reader :value, :next
+    include LinkedList
+
+    attr_reader :value
+    attr_accessor :next
 
     def initialize(value = nil, nxt = nil)
       @value = value
@@ -23,6 +26,10 @@ module LinkedList
       node.next = self
 
       node
+    end
+
+    def empty?
+      false
     end
 
   end
