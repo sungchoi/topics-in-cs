@@ -1,9 +1,9 @@
-require_relative '../../binary_search_tree/base'
+require_relative '../binary_search_tree'
 
-describe BinarySearchTree::Base do
+describe BinarySearchTree do
 
   context "#include?(value)" do
-    let(:tree){ BinarySearchTree::Base.new().insert(3).insert(2).insert(1) }
+    let(:tree){ BinarySearchTree.new().insert(3).insert(2).insert(1) }
 
     it "returns true when the value is == to a value held by one of the nodes in the tree" do
       expect(tree.include?(1)).to eq(true)
@@ -21,7 +21,7 @@ describe BinarySearchTree::Base do
   end
 
   context "#insert(value)" do
-    let(:tree){ BinarySearchTree::Base.new().insert(1) }
+    let(:tree){ BinarySearchTree.new().insert(1) }
     it "inserts the value into the tree" do
       tree.insert(2)
       expect(tree.include?(2)).to eq(true)
@@ -36,8 +36,8 @@ describe BinarySearchTree::Base do
   end
 
   context "#empty?" do
-    let(:empty){ BinarySearchTree::Base.new() }
-    let(:tree) { BinarySearchTree::Base.new().insert(1)}
+    let(:empty){ BinarySearchTree.new() }
+    let(:tree) { BinarySearchTree.new().insert(1)}
     it "returns true when there are no nodes in the tree, i.e. the root is Empty" do
       expect(empty.empty?).to eq(true)
     end

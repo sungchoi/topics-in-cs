@@ -1,9 +1,10 @@
-require_relative '../../binary_search_tree/node'
+require_relative '../binary_search_tree_node'
 
-describe BinarySearchTree::Node do
+describe BinarySearchTreeNode do
 
   context "#include?(value)" do
-    let(:tree){ BinarySearchTree::Node.new(1, BinarySearchTree::Node.new(2), BinarySearchTree::Node.new(3)) }
+    let(:tree){ BinarySearchTreeNode.new(2, BinarySearchTreeNode.new(1), BinarySearchTreeNode.new(3)) }
+    let(:unsorted_tree){ BinarySearchTreeNode.new(1, BinarySearchTreeNode.new(2), BinarySearchTreeNode.new(3)) }
 
     it "returns true when the value is == to a value held by one of the nodes in the tree" do
       expect(tree.include?(1)).to eq(true)
@@ -38,4 +39,19 @@ describe BinarySearchTree::Node do
   context "#empty?" do
     it "returns true when..."
   end
+
+  context "#sorted?" do
+    let(:tree){ BinarySearchTreeNode.new(2, BinarySearchTreeNode.new(1), BinarySearchTreeNode.new(3)) }
+    let(:unsorted_tree){ BinarySearchTreeNode.new(1, BinarySearchTreeNode.new(2), BinarySearchTreeNode.new(3)) }
+
+    it "returns true for a sorted tree" do
+      expect(tree.sorted?).to eq(true)
+    end
+
+    it "returns false for an unsorted tree" do
+      expect(unsorted_tree.sorted?).to eq(false)
+    end
+
+  end
+
 end
