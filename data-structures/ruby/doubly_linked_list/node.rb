@@ -3,8 +3,7 @@ require_relative 'doubly_linked_list_node'
 module DoublyLinkedList
   class Node
 
-    attr_reader :value
-    attr_accessor :prev, :next
+    attr_reader :value, :prev, :next
 
     def initialize(value, nxt = nil, prev = nil)
       @value = value
