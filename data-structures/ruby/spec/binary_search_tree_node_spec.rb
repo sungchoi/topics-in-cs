@@ -49,11 +49,11 @@ describe BinarySearchTreeNode do
   end
 
   context "#sorted?" do
-    let(:tree){ BinarySearchTreeNode.new(2, BinarySearchTreeNode.new(1), BinarySearchTreeNode.new(3)) }
+    let(:sorted_tree){ BinarySearchTreeNode.new(2, BinarySearchTreeNode.new(1), BinarySearchTreeNode.new(3)) }
     let(:unsorted_tree){ BinarySearchTreeNode.new(1, BinarySearchTreeNode.new(2), BinarySearchTreeNode.new(3)) }
 
     it "returns true for a sorted tree" do
-      expect(tree.sorted?).to eq(true)
+      expect(sorted_tree.sorted?).to eq(true)
     end
 
     it "returns false for an unsorted tree" do

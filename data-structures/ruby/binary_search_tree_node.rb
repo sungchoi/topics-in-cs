@@ -83,6 +83,7 @@ class BinarySearchTreeNode < BinaryTreeNode
     return false if right && right.value < self.value
     left.sorted? if left
     right.sorted? if right
+    return true
   end
 
 end
