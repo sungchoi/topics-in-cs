@@ -40,6 +40,14 @@ describe BinarySearchTreeNode do
     it "returns true when..."
   end
 
+  context "#size?" do
+    let(:tree){ BinarySearchTreeNode.new(2, BinarySearchTreeNode.new(1), BinarySearchTreeNode.new(3)) }
+
+    it "" do
+      expect(tree.size?).to eq(3)
+    end
+  end
+
   context "#sorted?" do
     let(:tree){ BinarySearchTreeNode.new(2, BinarySearchTreeNode.new(1), BinarySearchTreeNode.new(3)) }
     let(:unsorted_tree){ BinarySearchTreeNode.new(1, BinarySearchTreeNode.new(2), BinarySearchTreeNode.new(3)) }
