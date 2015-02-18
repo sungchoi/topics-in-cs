@@ -39,6 +39,16 @@ describe LinkedList::Base do
     expect(list_a.peek).to eq("a")
   end
 
+  it "#prepend" do
+    @empty_list.prepend(10)
+    expect(@empty_list.peek).to eq(10)
+    expect(@empty_list.length).to eq(1)
+
+    @empty_list.prepend(20)
+    expect(@empty_list.peek).to eq(10)
+    expect(@empty_list.length).to eq(2)
+  end
+
   it "#insert" do
     expect(@list.insert(3, 0).peek).to eq(3)
     expect(@list.insert(0, -1).tail.value).to eq(0)
