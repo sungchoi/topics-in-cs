@@ -16,7 +16,6 @@ class BinarySearchTree
   # @return [BinarySearchTree]
   def insert(value)
     @root = @root.insert(value)
-
     self
   end
 

@@ -58,8 +58,9 @@ class BinarySearchTreeNode < BinaryTreeNode
 ############################################################
 # TODO:   def initialize(value, left = BinarySearchTreeNode, right = BinarySearchTreeNode, parent = nil)
 # TODO:   How to deal with value comaprisons in #sorted?
-  def initialize(value, opts = {left: BinarySearchTreeNode, right: BinarySearchTreeNode})
-    puts "value: #{value}, opts: #{opts}"
+  def initialize(value, opts = {})
+    opts[:left]  ||= BinarySearchTreeNode
+    opts[:right] ||= BinarySearchTreeNode
     super(value, opts)
   end
 
@@ -67,7 +68,7 @@ class BinarySearchTreeNode < BinaryTreeNode
   # @time average BigO(log n)
   def include?(value)
     return true if self.value == value
-    in_left = left.include?(value) if self.value > value
+    in_left  = left.include?(value)  if self.value > value
     in_right = right.include?(value) if self.value < value
     (in_left || in_right) ? true : false
   end
@@ -80,9 +81,9 @@ class BinarySearchTreeNode < BinaryTreeNode
     # NOTE: TODO What if they are == ? Nothing? Or overwrite? Overwrite. key_value
     return self if value == @value
     if value < @value
-      @left ? @left.insert(value) : @left = BinarySearchTreeNode.new(value)
+      @left.insert(value)
     else
-      @right ? @right.insert(value) : @right = BinarySearchTreeNode.new(value)
+      @right.insert(value)
     end
 
     self
@@ -100,19 +101,16 @@ class BinarySearchTreeNode < BinaryTreeNode
   # @time average BigO(log n)
   def remove(value)
     # TODO Make this non destructive
-    puts "#remove"
-    puts "value: #{value}, @value: #{@value}"
-    #TODO
+    dup = self.dup
     if value == @value
-      puts "value == @value. @left.insert_subtree(@right): #{@left.insert_subtree(@right)}"
-      return @left.insert_subtree(@right)
+      return @left.dup.insert_subtree(@right.dup)
     elsif value < @value
-      @left = @left.remove(value)
+      dup.left = @left.dup.remove(value)
     else
-      @right = @right.remove(value)
+      dup.right = @right.dup.remove(value)
     end
 
-    self
+    dup
   end
 
   def remove!(value)
@@ -140,6 +138,15 @@ class BinarySearchTreeNode < BinaryTreeNode
     left.sorted? if left
     right.sorted? if right
     return true
+  end
+
+  protected
+  def left=(value)
+    @left = value
+  end
+
+  def right=(value)
+    @right = value
   end
 
   private
