@@ -79,14 +79,15 @@ class BinarySearchTreeNode < BinaryTreeNode
   def insert(value)
     # TODO Make this non destructive
     # NOTE: TODO What if they are == ? Nothing? Or overwrite? Overwrite. key_value
-    return self if value == @value
+    dup = self.dup
+    return dup if value == @value
     if value < @value
-      @left.insert(value)
+      dup.left = @left.dup.insert(value)
     else
-      @right.insert(value)
+      dup.right = @right.dup.insert(value)
     end
 
-    self
+    dup
   end
 
   def insert_subtree(subtree)
