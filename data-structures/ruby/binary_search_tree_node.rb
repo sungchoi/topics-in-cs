@@ -115,11 +115,15 @@ class BinarySearchTreeNode < BinaryTreeNode
     dup
   end
 
-  def replace_parent_node
-    #TODO
+  def sorted?
+    return false if left && left.value > self.value
+    return false if right && right.value < self.value
+    left.sorted? if left
+    right.sorted? if right
+    return true
   end
 
-  def find_min
+  def min
     find_min_node.value
   end
 
@@ -129,14 +133,6 @@ class BinarySearchTreeNode < BinaryTreeNode
       current_node = current_node.left
     end
     current_node
-  end
-
-  def sorted?
-    return false if left && left.value > self.value
-    return false if right && right.value < self.value
-    left.sorted? if left
-    right.sorted? if right
-    return true
   end
 
   protected
