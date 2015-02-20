@@ -7,8 +7,8 @@ describe BinarySearchTree do
     let(:tree){ BinarySearchTree.new().insert(3).insert(2).insert(1) }
 
     it "returns false when the value the tree is empty" do
-      expect(tree.include?(rand(100))).to eq(false)
-      expect(tree.include?(rand(100))).to eq(false)
+      expect(empty_tree.include?(rand(100))).to eq(false)
+      expect(empty_tree.include?(rand(100))).to eq(false)
     end
 
     it "returns true when the value is == to a value held by one of the nodes in the tree" do
@@ -29,6 +29,7 @@ describe BinarySearchTree do
   context "#insert(value)" do
     let(:tree){ BinarySearchTree.new().insert(1) }
     it "inserts the value into the tree" do
+      expect(tree.size).to eq(1)
       tree.insert(2)
       expect(tree.size).to eq(2)
       expect(tree.include?(2)).to eq(true)
