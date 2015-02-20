@@ -3,7 +3,13 @@ require_relative '../binary_search_tree'
 describe BinarySearchTree do
 
   context "#include?(value)" do
+    let(:empty_tree){ BinarySearchTree.new() }
     let(:tree){ BinarySearchTree.new().insert(3).insert(2).insert(1) }
+
+    it "returns false when the value the tree is empty" do
+      expect(tree.include?(rand(100))).to eq(false)
+      expect(tree.include?(rand(100))).to eq(false)
+    end
 
     it "returns true when the value is == to a value held by one of the nodes in the tree" do
       expect(tree.include?(1)).to eq(true)
@@ -24,6 +30,7 @@ describe BinarySearchTree do
     let(:tree){ BinarySearchTree.new().insert(1) }
     it "inserts the value into the tree" do
       tree.insert(2)
+      expect(tree.size).to eq(2)
       expect(tree.include?(2)).to eq(true)
     end
 

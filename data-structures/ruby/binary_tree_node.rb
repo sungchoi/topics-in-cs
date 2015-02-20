@@ -9,6 +9,7 @@ end
 
 class BinaryTreeNode
 
+  include Enumerable
   attr_reader :value, :left, :right, :parent
 
   def initialize(value = nil, left = nil, right = nil, parent = nil)
@@ -48,6 +49,10 @@ class BinaryTreeNode
     block.call(self.value)
   end
 
+  def size
+    size?
+  end
+
   def size?(memo = 0)
     memo += 1
     memo = left.size?(memo) if left
@@ -55,8 +60,12 @@ class BinaryTreeNode
     memo
   end
 
+  def to_a
+    self.map { |e| e }
+  end
+
   def ==(other)
     return false if !other.instance_of?(self.class)
-    #TODO
+    self.to_a == other.to_a
   end
 end

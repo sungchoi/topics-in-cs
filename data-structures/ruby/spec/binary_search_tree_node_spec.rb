@@ -6,9 +6,12 @@ describe BinarySearchTreeNode do
     let(:tree){ BinarySearchTreeNode.new(2, BinarySearchTreeNode.new(1), BinarySearchTreeNode.new(3)) }
     let(:unsorted_tree){ BinarySearchTreeNode.new(1, BinarySearchTreeNode.new(2), BinarySearchTreeNode.new(3)) }
 
-    it "returns true when the value is == to a value held by one of the nodes in the tree" do
-      expect(tree.include?(1)).to eq(true)
+    it "returns true when the value is == to a value held by the root node in the tree" do
       expect(tree.include?(2)).to eq(true)
+    end
+
+    it "returns true when the value is == to a value held by one of the child nodes in the tree" do
+      expect(tree.include?(1)).to eq(true)
       expect(tree.include?(3)).to eq(true)
     end
 
@@ -22,10 +25,14 @@ describe BinarySearchTreeNode do
   end
 
   context "#insert(value)" do
-    let(:tree){ BinarySearchTree::Node.new(1) }
+    let(:tree){ BinarySearchTreeNode.new(1) }
     it "inserts the value into the tree" do
       tree.insert(2)
+      expect(tree).to eq(BinarySearchTreeNode.new(1, nil, BinarySearchTreeNode.new(2)))
       expect(tree.include?(2)).to eq(true)
+      tree.insert(3)
+      tree.insert(5)
+      expect(tree.sorted?).to eq(true)
     end
 
     it "inserts the value into the tree in the correct location"

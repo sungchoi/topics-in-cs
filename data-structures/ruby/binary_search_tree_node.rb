@@ -1,13 +1,13 @@
 require_relative 'binary_tree_node'
 
-def BinarySearchTreeNode(value, left = nil, right = nil, parent = nil)
-  case value
-  when BinarySearchTreeNode
-    value
-  else
-    BinarySearchTreeNode.new(value, left, right, parent)
-  end
-end
+# def BinarySearchTreeNode(value, left = nil, right = nil, parent = nil)
+#   case value
+#   when BinarySearchTreeNode
+#     value
+#   else
+#     BinarySearchTreeNode.new(value, left, right, parent)
+#   end
+# end
 
 # Implement a binary search tree.
 # See http://en.wikipedia.org/wiki/Binary_search_tree
@@ -22,28 +22,27 @@ class BinarySearchTreeNode < BinaryTreeNode
 
   def initialize(value, left = nil, right = nil, parent = nil)
     super(value, left, right, parent)
-    @size = size?
   end
 
   # @time worst-case BigO(n)
   # @time average BigO(log n)
   def include?(value)
     return true if self.value == value
-    left.include?(value) if left && self.value > value
-    right.include?(value) if right && self.value < value
-    return false
+    in_left = left.include?(value) if left && self.value > value
+    in_right = right.include?(value) if right && self.value < value
+    (in_left || in_right) ? true : false
   end
 
   # @time worst-case BigO(n)
   # @time average BigO(log n)
+  # @param [Comparable] value
   def insert(value)
-    node = BinarySearchTreeNode(value)
-    direction = value < self.value ? @left : @right
-    # NOTE: TODO What if they are ==
-    if direction.nil?
-      direction = node
+    # NOTE: TODO What if they are == ? Nothing? Or overwrite?
+    return self if value == @value
+    if value < @value
+      @left ? @left.insert(value) : @left = BinarySearchTreeNode.new(value)
     else
-      direction.insert(node)
+      @right ? @right.insert(value) : @right = BinarySearchTreeNode.new(value)
     end
 
     self
@@ -55,8 +54,13 @@ class BinarySearchTreeNode < BinaryTreeNode
     #TODO
     if children.empty?
       #remove self from parent
+      parent.left = nil if self == parent.left
+      parent.right = nil if self == parent.right
     elsif children.length == 1
       #take child and replace self with it
+      child = child.left ? left : right
+      parent.left = child if self == parent.left
+      parent.right = child if self == parent.right
     elsif children.length == 2
       #take left child and replace self with it
     end
@@ -84,6 +88,11 @@ class BinarySearchTreeNode < BinaryTreeNode
     left.sorted? if left
     right.sorted? if right
     return true
+  end
+
+  private
+  def value=(value)
+    @value = value
   end
 
 end

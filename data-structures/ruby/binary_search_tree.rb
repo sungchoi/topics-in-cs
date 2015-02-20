@@ -2,45 +2,55 @@ require_relative 'binary_search_tree_node'
 
 class BinarySearchTree
 
-  def initialize()
+  attr_reader :root, :size
+
+  def initialize
     @root = nil
-    @size = 0
   end
 
+  # @return [Boolean]
   def include?(value)
-    return false if @size == 0
+    return false if empty?
     @root.include?(value)
   end
 
+  # @return [BinarySearchTree]
   def insert(value)
-    if empty?
-      @root = BinarySearchTreeNode(value)
-    else
+    if @root
       @root.insert(value)
+    else
+      @root = BinarySearchTreeNode.new(value)
     end
 
-    @size += 1
     self
   end
 
+  # @return [BinarySearchTree]
   def remove(value)
-    if empty?
-      self
-    else
-      @root.remove(value) #what if it is itself? what if it removes more than one?
-      @size -= 1
-      @root = nil if @size == 0
-      self
-    end
+    #what if it is itself? what if it removes more than one?
+    @root.remove(value) if @root
+    self
   end
 
+  # @return [Integer]
+  def size
+    size?
+  end
+
+  # @return [Boolean]
   def empty?
-    @size == 0 && @root.nil?
+    size == 0
   end
 
+  # @return [Boolean]
   def size?
     return 0 if @root.nil?
     @root.size?
+  end
+
+  def sorted?
+    return true if @root.nil?
+    @root.sorted?
   end
 
 end

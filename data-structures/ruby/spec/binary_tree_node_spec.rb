@@ -11,7 +11,6 @@ describe BinaryTreeNode do
   it "#left" do
     #TODO
     expect(tree.left).to  eq(BinaryTreeNode.new(1))
-    expect(tree).to       eq(BinaryTreeNode.new(2))
   end
 
   it "#right" do
