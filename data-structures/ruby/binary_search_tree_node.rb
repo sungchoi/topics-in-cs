@@ -20,6 +20,9 @@ require_relative 'binary_tree_node'
 
 class BinarySearchTreeNode < BinaryTreeNode
 
+############################################################
+# Class Methods
+############################################################
   def self.insert(value)
     BinarySearchTreeNode.new(value)
   end
@@ -36,6 +39,11 @@ class BinarySearchTreeNode < BinaryTreeNode
     true
   end
 
+############################################################
+# Instance Methods
+############################################################
+# TODO:   def initialize(value, left = BinarySearchTreeNode, right = BinarySearchTreeNode, parent = nil)
+# TODO:   How to deal with value comaprisons in #sorted?
   def initialize(value, left = nil, right = nil, parent = nil)
     super(value, left, right, parent)
   end

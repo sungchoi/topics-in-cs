@@ -29,6 +29,7 @@ class BinarySearchTree
 
   # @return [Integer]
   def size
+    # TODO Cache Size
     size?
   end
 
