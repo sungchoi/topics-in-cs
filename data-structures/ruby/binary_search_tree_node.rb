@@ -91,11 +91,12 @@ class BinarySearchTreeNode < BinaryTreeNode
   end
 
   def insert_subtree(subtree)
+    new_tree = self.dup
     subtree.each do |key_value|
-      insert(key_value)
+      new_tree = new_tree.insert(key_value)
     end
 
-    self
+    new_tree
   end
 
   # @time worst-case BigO(n)
@@ -112,9 +113,6 @@ class BinarySearchTreeNode < BinaryTreeNode
     end
 
     dup
-  end
-
-  def remove!(value)
   end
 
   def replace_parent_node
@@ -149,17 +147,5 @@ class BinarySearchTreeNode < BinaryTreeNode
   def right=(value)
     @right = value
   end
-
-  private
-  def value=(value)
-    @value = value
-  end
-
-  # def >(other)
-
-  # end
-
-  # def <(other)
-  # end
 
 end
