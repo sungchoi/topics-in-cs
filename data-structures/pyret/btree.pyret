@@ -1,0 +1,4 @@
+data BTree<a>:
+  | bt-node(value :: a, left :: BTree, right :: BTree)
+  | bt-leaf(value :: a)
+end

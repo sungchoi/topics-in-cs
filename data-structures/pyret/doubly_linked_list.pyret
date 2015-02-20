@@ -1,0 +1,20 @@
+data DLinkedList<a>:
+  | dll-empty
+  | dll-sentinel(head :: DLinkedList, tail :: DLinkedList)
+  | dll-link(value :: a, next :: DLinkedList, prev :: DLinkedList)
+end
+
+#function
+fun dll-is-empty(ll :: DLinkedList) -> Boolean:
+  cases(DLinkedList) ll:
+    | dll-empty => true
+    | dll-link(_, _, _) => false
+  end
+where:
+  dll-is-empty(dll-link(1, dll-empty, dll-empty)) is false
+  dll-is-empty(dll-empty) is true
+end
+
+check:
+  dll-empty satisfies dll-is-empty
+end
