@@ -20,6 +20,22 @@ require_relative 'binary_tree_node'
 
 class BinarySearchTreeNode < BinaryTreeNode
 
+  def self.insert(value)
+    BinarySearchTreeNode.new(value)
+  end
+
+  def self.remove(value)
+    self
+  end
+
+  def self.size?
+    0
+  end
+
+  def self.sorted?
+    true
+  end
+
   def initialize(value, left = nil, right = nil, parent = nil)
     super(value, left, right, parent)
   end

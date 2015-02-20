@@ -5,22 +5,17 @@ class BinarySearchTree
   attr_reader :root, :size
 
   def initialize
-    @root = nil
+    @root = BinarySearchTreeNode
   end
 
   # @return [Boolean]
   def include?(value)
-    return false if empty?
     @root.include?(value)
   end
 
   # @return [BinarySearchTree]
   def insert(value)
-    if @root
-      @root.insert(value)
-    else
-      @root = BinarySearchTreeNode.new(value)
-    end
+    @root = @root.insert(value)
 
     self
   end
@@ -28,7 +23,7 @@ class BinarySearchTree
   # @return [BinarySearchTree]
   def remove(value)
     #what if it is itself? what if it removes more than one?
-    @root.remove(value) if @root
+    @root.remove(value)
     self
   end
 
@@ -44,12 +39,10 @@ class BinarySearchTree
 
   # @return [Boolean]
   def size?
-    return 0 if @root.nil?
     @root.size?
   end
 
   def sorted?
-    return true if @root.nil?
     @root.sorted?
   end
 
