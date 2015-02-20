@@ -22,8 +22,7 @@ class BinarySearchTree
 
   # @return [BinarySearchTree]
   def remove(value)
-    #what if it is itself? what if it removes more than one?
-    @root.remove(value)
+    @root = @root.remove(value)
     self
   end
 
