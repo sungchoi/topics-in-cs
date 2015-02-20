@@ -27,16 +27,30 @@ class BinarySearchTreeNode < BinaryTreeNode
     BinarySearchTreeNode.new(value)
   end
 
+  def self.insert_subtree(subtree)
+    puts ".insert_subtree. subtree: #{subtree}"
+    subtree
+  end
+
   def self.remove(value)
+    puts ".remove. value: #{value}"
     self
   end
 
-  def self.size?
-    0
+  def self.include?(value)
+    false
+  end
+
+  def self.size?(memo = 0)
+    memo
   end
 
   def self.sorted?
     true
+  end
+
+  def self.value
+    0
   end
 
 ############################################################
@@ -44,16 +58,17 @@ class BinarySearchTreeNode < BinaryTreeNode
 ############################################################
 # TODO:   def initialize(value, left = BinarySearchTreeNode, right = BinarySearchTreeNode, parent = nil)
 # TODO:   How to deal with value comaprisons in #sorted?
-  def initialize(value, left = nil, right = nil, parent = nil)
-    super(value, left, right, parent)
+  def initialize(value, opts = {left: BinarySearchTreeNode, right: BinarySearchTreeNode})
+    puts "value: #{value}, opts: #{opts}"
+    super(value, opts)
   end
 
   # @time worst-case BigO(n)
   # @time average BigO(log n)
   def include?(value)
     return true if self.value == value
-    in_left = left.include?(value) if left && self.value > value
-    in_right = right.include?(value) if right && self.value < value
+    in_left = left.include?(value) if self.value > value
+    in_right = right.include?(value) if self.value < value
     (in_left || in_right) ? true : false
   end
 
@@ -61,7 +76,8 @@ class BinarySearchTreeNode < BinaryTreeNode
   # @time average BigO(log n)
   # @param [Comparable] value
   def insert(value)
-    # NOTE: TODO What if they are == ? Nothing? Or overwrite?
+    # TODO Make this non destructive
+    # NOTE: TODO What if they are == ? Nothing? Or overwrite? Overwrite. key_value
     return self if value == @value
     if value < @value
       @left ? @left.insert(value) : @left = BinarySearchTreeNode.new(value)
@@ -72,22 +88,34 @@ class BinarySearchTreeNode < BinaryTreeNode
     self
   end
 
+  def insert_subtree(subtree)
+    subtree.each do |key_value|
+      insert(key_value)
+    end
+
+    self
+  end
+
   # @time worst-case BigO(n)
   # @time average BigO(log n)
   def remove(value)
+    # TODO Make this non destructive
+    puts "#remove"
+    puts "value: #{value}, @value: #{@value}"
     #TODO
-    if children.empty?
-      #remove self from parent
-      parent.left = nil if self == parent.left
-      parent.right = nil if self == parent.right
-    elsif children.length == 1
-      #take child and replace self with it
-      child = child.left ? left : right
-      parent.left = child if self == parent.left
-      parent.right = child if self == parent.right
-    elsif children.length == 2
-      #take left child and replace self with it
+    if value == @value
+      puts "value == @value. @left.insert_subtree(@right): #{@left.insert_subtree(@right)}"
+      return @left.insert_subtree(@right)
+    elsif value < @value
+      @left = @left.remove(value)
+    else
+      @right = @right.remove(value)
     end
+
+    self
+  end
+
+  def remove!(value)
   end
 
   def replace_parent_node
@@ -118,5 +146,12 @@ class BinarySearchTreeNode < BinaryTreeNode
   def value=(value)
     @value = value
   end
+
+  # def >(other)
+
+  # end
+
+  # def <(other)
+  # end
 
 end
