@@ -1,9 +1,9 @@
-def BinaryTreeNode(value, left = nil, right = nil, parent = nil)
+def BinaryTreeNode(value, opts = {})
   case value
   when BinaryTreeNode
     value
   else
-    BinaryTreeNode.new(value, left, right, parent)
+    BinaryTreeNode.new(value, opts)
   end
 end
 
@@ -12,11 +12,11 @@ class BinaryTreeNode
   include Enumerable
   attr_reader :value, :left, :right, :parent
 
-  def initialize(value = nil, left = nil, right = nil, parent = nil)
+  def initialize(value = nil, opts = {})
     @value = value
-    @left  = left
-    @right = right
-    @parent = parent
+    @left  = opts.fetch(:left, nil)
+    @right = opts.fetch(:right, nil)
+    @parent = opts.fetch(:parent, nil)
   end
 
   # @return [Array<BinaryTree::Node>]
