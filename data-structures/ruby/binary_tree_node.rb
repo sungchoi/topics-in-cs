@@ -10,13 +10,12 @@ end
 class BinaryTreeNode
 
   include Enumerable
-  attr_reader :value, :left, :right, :parent
+  attr_reader :value, :left, :right
 
   def initialize(value = nil, opts = {})
     @value = value
     @left  = opts.fetch(:left, nil)
     @right = opts.fetch(:right, nil)
-    @parent = opts.fetch(:parent, nil)
   end
 
   # @return [Array<BinaryTree::Node>]
@@ -24,8 +23,15 @@ class BinaryTreeNode
     [@left, @right]
   end
 
-  def each(&block)
-    pre_order(&block)
+  def each(option = :pre_order, &block)
+    case option
+    when :pre_order
+      pre_order(&block)
+    when :in_order
+      in_order(&block)
+    when :post_order
+      post_order(&block)
+    end
   end
 
   # Implement pre-order traversal of the tree
