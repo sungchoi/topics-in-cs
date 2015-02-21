@@ -1,13 +1,13 @@
 require_relative 'binary_tree_node'
 
-def BinarySearchTreeNode(value, opts)
-  case value
-  when BinarySearchTreeNode
-    value
-  else
-    BinarySearchTreeNode.new(value, opts)
-  end
-end
+# def BinarySearchTreeNode(value, left = nil, right = nil, parent = nil)
+#   case value
+#   when BinarySearchTreeNode
+#     value
+#   else
+#     BinarySearchTreeNode.new(value, left, right, parent)
+#   end
+# end
 
 # Implement a binary search tree.
 # See http://en.wikipedia.org/wiki/Binary_search_tree
@@ -18,30 +18,34 @@ end
 #   empty?              O(1) time
 
 
-class BinarySearchTreeNode < BinaryTreeNode
+class KeyValueBinarySearchTreeNode
 
-############################################################
+
 # Class Methods
 ############################################################
 
-  def self.insert(value)
-    BinarySearchTreeNode.new(value)
+  def self.insert(key_value)
+    KeyValueBinarySearchTreeNode.new(key_value)
   end
 
   def self.insert_subtree(subtree)
     subtree
   end
 
-  def self.remove(value)
+  def self.remove(key)
     self
   end
 
-  def self.include?(value)
+  def self.include?(key)
     false
   end
 
-  def self.size?(memo = 0)
-    memo
+  def self.find(key)
+    nil
+  end
+
+  def self.size
+    0
   end
 
   def self.sorted?
@@ -55,43 +59,56 @@ class BinarySearchTreeNode < BinaryTreeNode
   def self.pre_order
   end
 
-  def self.in_order
-  end
-
-  def self.post_order
-  end
-
-############################################################
 # Instance Methods
 ############################################################
 
-  def initialize(value, opts = {})
+  def initialize(key_value_pair, opts = {})
+    key_value_pair = Array(key_value_pair) #coersion
     opts[:left]  ||= BinarySearchTreeNode
     opts[:right] ||= BinarySearchTreeNode
-    super(value, opts)
+    @tree = BinaryTreeNode.new(key_value_pair, opts)
+  end
+
+  def key
+    @tree.value[0]
+  end
+
+  def key_value
+    @tree.value[1]
+  end
+
+  def key_value_pair
+    @tree.value
+  end
+
+  def left
+    @tree.left
+  end
+
+  def right
+    @tree.right
   end
 
   # @time worst-case BigO(n)
   # @time average BigO(log n)
-  # @return [Boolean]
-  def include?(value)
-    return true if self.value == value
-    in_left  = left.include?(value)  if self.value > value
-    in_right = right.include?(value) if self.value < value
+  def include?(key)
+    return true if @key == key
+    in_left  = left.include?(key)  if @key > key
+    in_right = right.include?(key) if @key < key
     (in_left || in_right) ? true : false
   end
 
   # @time worst-case BigO(n)
   # @time average BigO(log n)
   # @param [Comparable] value
-  # @return [BinarySearchTreeNode]
-  def insert(value)
-    dup = self.dup
-    return dup if value == @value
-    if value < @value
-      dup.left = @left.dup.insert(value)
+  def insert(key_value_pair)
+    # NOTE: TODO What if they are == ? Nothing? Or overwrite? Overwrite. key_value
+    dup = KeyValueBinarySearchTreeNode(key_value_pair, left, right)
+    return dup if key_value_pair[0] == key
+    if @key < key
+      dup.left = dup.left.insert(key_value_pair)
     else
-      dup.right = @right.dup.insert(value)
+      dup.right = dup.right.insert(key_value)
     end
 
     dup
@@ -110,19 +127,19 @@ class BinarySearchTreeNode < BinaryTreeNode
   # @time average BigO(log n)
   def remove(key)
     dup = self.dup
-    if value == @value
+    if @key == key
       return @left.dup.insert_subtree(@right.dup)
-    elsif value < @value
-      dup.left = @left.dup.remove(value)
+    elsif @key < key
+      dup.left = @left.dup.remove(key)
     else
-      dup.right = @right.dup.remove(value)
+      dup.right = @right.dup.remove(key)
     end
 
     dup
   end
 
   # @param [Comparable] key
-  # @return [Object?]
+  # @return [Object|nil]
   def find(key)
     if key == @key
       return key_value
@@ -134,8 +151,8 @@ class BinarySearchTreeNode < BinaryTreeNode
   end
 
   def sorted?
-    return false if left.value > self.value
-    return false if right.value < self.value
+    return false if left.key > self.key
+    return false if right.key < self.key
     left.sorted?
     right.sorted?
     return true
