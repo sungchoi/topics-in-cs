@@ -8,21 +8,30 @@ class BinarySearchTree
     @root = BinarySearchTreeNode
   end
 
+  # @param [Comparable] key
   # @return [Boolean]
-  def include?(value)
-    @root.include?(value)
+  def include?(key)
+    @root.include?(key)
   end
 
+  # @param [Object, Object] key_value
   # @return [BinarySearchTree]
-  def insert(value)
-    @root = @root.insert(value)
+  def insert(key_value)
+    # key_value = Array(key_value) #coersion
+    @root = @root.insert(key_value)
     self
   end
 
+  # @param [Comparable] key
   # @return [BinarySearchTree]
-  def remove(value)
-    @root = @root.remove(value)
+  def remove(key)
+    @root = @root.remove(key)
     self
+  end
+
+  # @param [Comparable] key
+  def find(key)
+    @root.find(key)
   end
 
   # @return [Integer]
@@ -36,11 +45,12 @@ class BinarySearchTree
     size == 0
   end
 
-  # @return [Boolean]
+  # @return [Integer]
   def size?
     @root.size?
   end
 
+  # @return [Boolean]
   def sorted?
     @root.sorted?
   end

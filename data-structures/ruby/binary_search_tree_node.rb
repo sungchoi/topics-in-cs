@@ -28,18 +28,28 @@ class BinarySearchTreeNode < BinaryTreeNode
   end
 
   def self.insert_subtree(subtree)
-    puts ".insert_subtree. subtree: #{subtree}"
     subtree
   end
 
   def self.remove(value)
-    puts ".remove. value: #{value}"
     self
   end
 
   def self.include?(value)
     false
   end
+
+  # def self.remove(key)
+  #   self
+  # end
+
+  # def self.include?(key)
+  #   false
+  # end
+
+  # def self.find(key)
+  #   nil
+  # end
 
   def self.size?(memo = 0)
     memo
@@ -56,13 +66,24 @@ class BinarySearchTreeNode < BinaryTreeNode
 ############################################################
 # Instance Methods
 ############################################################
-# TODO:   def initialize(value, left = BinarySearchTreeNode, right = BinarySearchTreeNode, parent = nil)
-# TODO:   How to deal with value comaprisons in #sorted?
+
+  attr_reader :key
+
   def initialize(value, opts = {})
+    # value = Array(value) #coersion
     opts[:left]  ||= BinarySearchTreeNode
     opts[:right] ||= BinarySearchTreeNode
+    # @key = value[0]
     super(value, opts)
   end
+
+  # def key_value
+  #   @value[1]
+  # end
+
+  # def key_value_pair
+  #   @value
+  # end
 
   # @time worst-case BigO(n)
   # @time average BigO(log n)
@@ -73,11 +94,17 @@ class BinarySearchTreeNode < BinaryTreeNode
     (in_left || in_right) ? true : false
   end
 
+  # def include?(key)
+  #   return true if @key == key
+  #   in_left  = left.include?(key)  if @key > key
+  #   in_right = right.include?(key) if @key < key
+  #   (in_left || in_right) ? true : false
+  # end
+
   # @time worst-case BigO(n)
   # @time average BigO(log n)
   # @param [Comparable] value
   def insert(value)
-    # TODO Make this non destructive
     # NOTE: TODO What if they are == ? Nothing? Or overwrite? Overwrite. key_value
     dup = self.dup
     return dup if value == @value
@@ -90,6 +117,19 @@ class BinarySearchTreeNode < BinaryTreeNode
     dup
   end
 
+  # def insert(key_value)
+  #   # NOTE: TODO What if they are == ? Nothing? Or overwrite? Overwrite. key_value
+  #   dup = self.dup
+  #   return dup if @key == key
+  #   if @key < key
+  #     dup.left = @left.dup.insert(key_value)
+  #   else
+  #     dup.right = @right.dup.insert(key_value)
+  #   end
+
+  #   dup
+  # end
+
   def insert_subtree(subtree)
     new_tree = self.dup
     subtree.each do |key_value|
@@ -101,8 +141,7 @@ class BinarySearchTreeNode < BinaryTreeNode
 
   # @time worst-case BigO(n)
   # @time average BigO(log n)
-  def remove(value)
-    # TODO Make this non destructive
+  def remove(key)
     dup = self.dup
     if value == @value
       return @left.dup.insert_subtree(@right.dup)
@@ -115,13 +154,46 @@ class BinarySearchTreeNode < BinaryTreeNode
     dup
   end
 
+  # def remove(key)
+  #   dup = self.dup
+  #   if @key == key
+  #     return @left.dup.insert_subtree(@right.dup)
+  #   elsif @key < key
+  #     dup.left = @left.dup.remove(key)
+  #   else
+  #     dup.right = @right.dup.remove(key)
+  #   end
+
+  #   dup
+  # end
+
+  # @param [Comparable] key
+  # @return [Object|nil]
+  # def find(key)
+  #   if key == @key
+  #     return key_value
+  #   elsif key < @key
+  #     @left.find(key)
+  #   else
+  #     @right.find(key)
+  #   end
+  # end
+
   def sorted?
-    return false if left && left.value > self.value
-    return false if right && right.value < self.value
-    left.sorted? if left
-    right.sorted? if right
+    return false if left.value > self.value
+    return false if right.value < self.value
+    left.sorted?
+    right.sorted?
     return true
   end
+
+  # def sorted?
+  #   return false if left.key > self.key
+  #   return false if right.key < self.key
+  #   left.sorted?
+  #   right.sorted?
+  #   return true
+  # end
 
   def min
     find_min_node.value
