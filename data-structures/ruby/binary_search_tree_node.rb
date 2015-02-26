@@ -101,8 +101,8 @@ class BinarySearchTreeNode < BinaryTreeNode
 #  # TODO: @time BigO(log n)
   def insert_subtree(subtree)
     new_tree = self.dup
-    subtree.each do |key_value|
-      new_tree = new_tree.insert(key_value)
+    subtree.each do |value|
+      new_tree = new_tree.insert(value)
     end
 
     new_tree
@@ -123,7 +123,7 @@ class BinarySearchTreeNode < BinaryTreeNode
     dup
   end
 
-  # @param [Comparable] key
+  # @param [Comparable] value
   # @return [Object?]
   def find(value)
     if value == @value
