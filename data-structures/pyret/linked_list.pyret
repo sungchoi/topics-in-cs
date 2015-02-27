@@ -1,0 +1,71 @@
+# http://pyret.org
+# http://code.pyret.org
+
+# data structure
+# parameterized
+data LinkedList<a>:
+  | ll-empty
+  | ll-link(value :: a, rest :: LinkedList<a>)
+end
+
+# examples
+# immutable
+firstList = ll-link(1, ll-empty)
+secondList = ll-link(2, ll-empty)
+
+#function
+fun ll-is-empty(ll :: LinkedList) -> Boolean:
+  cases(LinkedList) ll:
+    | ll-empty => true
+    | ll-link(_, _) => false
+  end
+where:
+  ll-is-empty(firstList) is false
+  ll-is-empty(ll-empty) is true
+end
+
+fun ll-prepend<a>(value :: a, ll :: LinkedList<a>) -> LinkedList:
+  ll-link(value, ll)
+where:
+  ll-prepend(1, firstList) is ll-link(1, ll-link(1, ll-empty))
+  ll-prepend(2, firstList) is ll-link(2, ll-link(1, ll-empty))
+  ll-prepend(1, ll-empty)  is ll-link(1, ll-empty)
+end
+
+fun ll-append<a>(value :: a, ll :: LinkedList<a>) -> LinkedList:
+  ll-link(value, ll)
+where:
+  ll-append(3, secondList) is ll-link(3, ll-link(2, ll-empty))
+  ll-append(2, ll-empty)   is ll-link(2, ll-empty)
+end
+
+
+
+
+
+fun ll-unshift<a>(value :: a, ll :: LinkedList<a>) -> LinkedList:
+  ll-prepend(value, ll)
+where:
+  ll-unshift(2, secondList) is ll-link(2, ll-link(2, ll-empty))
+end
+
+fun ll-shift<a>(ll :: LinkedList<a>) -> LinkedList:
+  cases(LinkedList) ll:
+    | ll-empty => ll-empty
+    | ll-link(value, rest) => value
+  end
+end
+
+fun is-true(b :: Boolean) -> Boolean:
+  if b == true:
+    true
+  else:
+    false
+  end
+where:
+  is-true(true) is true
+  is-true(false) is false
+end
+
+
+
