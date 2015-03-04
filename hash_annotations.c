@@ -211,11 +211,14 @@ new_entry(st_table * table, st_data_t key, st_data_t value,
 // st.c
 // line 90-91
 // do_hash definition
-// notice that do_hash returns st_index_t which is equal to the has value
+// notice that do_hash returns st_index_t which is equal to the hash value
 // that hash value is retrieved by looking up the table's hash type, e.g. string,
-// and then passing the key to that hashtype which will hash the key
+// and then passing the key to that hashtype's hashing function which will hash the key
 // see below
 #define do_hash(key,table) (st_index_t)(*(table)->type->hash)((key))
+// & is a bitwise operator
+// the hash_pos function seems like another way to perform the modulus function
+// since the hash value could be outside of the actual number of bins (array length)
 #define hash_pos(h,n) ((h) & (n - 1))
 
 // st.c
