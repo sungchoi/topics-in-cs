@@ -8,7 +8,6 @@ module Sudoku
     # @param [Matrix] matrix
     def initialize(matrix)
       @matrix = matrix
-      @children = build_children
     end
 
     # @return [Sudoku::Puzzle]
@@ -39,9 +38,8 @@ module Sudoku
       !solved? && !children.empty?
     end
 
-    private
     # @return [Array<Sudoku::Puzzle>]
-    def build_children
+    def children
       children = []
       row, col = @matrix.index(0, :all)
       if row && col
@@ -53,13 +51,14 @@ module Sudoku
           new_matrix_rows = @matrix.to_a
           new_matrix_rows[row][col] = possibility
           new_matrix = Matrix.rows(new_matrix_rows)
-          children << Puzzle.new(new_matrix)
+          children << Puzzle.new(new_matrix) # calls children again #currently building the tree first
         end
       end
 
       children
     end
 
+    private
     # @param [Integer] row_index
     # @return [Set]
     def set_for_row(row_index)
