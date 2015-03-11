@@ -1,5 +1,9 @@
 require 'set'
 
+# TODO:
+# Use an array of arrays instead of matrices
+# in order to cut down on the overhead of coercing
+# matrices into arrays and back into matrices.
 module Sudoku
   class Puzzle
 
