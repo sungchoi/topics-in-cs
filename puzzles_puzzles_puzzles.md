@@ -1,5 +1,32 @@
 1. Implement a stack that supports "max" in O(1) time and O(n) space
 1. Implement a queue using two stacks
+
+Basic procedure:
+One stack is the enqueue stack
+and the other is the dequeue stack.
+class Queue
+  
+  def initialize
+    @enqueue_stack = Stack.new
+    @dequeue_stack = Stack.new
+  end
+
+  def enqueue(item)
+    @enqueue_stack.push(item)
+  end
+
+  def dequeue
+    if !@dequeue_stack.empty?
+      @dequeue_stack.pop
+    else
+      while !@enqueue_stack.empty?
+        @dequeue_stack.push(@enqueue_stack.pop)
+      end
+      @dequeue_stack.pop
+    end
+  end
+end
+
 1. Compress a list of URLs
 1. Write a function that detects whether {},(),[] brackets are properly nested.  Here "properly" means that an inner pair of brackets must be closed before any outer brackets, a la HTML tags.
 1. Write a function to reverse an array in place.
