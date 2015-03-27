@@ -1,0 +1,36 @@
+
+data Stack:
+  | sentinel
+  | node(value, pre :: Stack)
+end
+
+fun stack-push(value, stack :: Stack)) -> Stack:
+  node(value, stack)
+where:
+
+end
+
+fun stack-pop(stack :: Stack) -> Stack:
+  case(Stack) stack:
+    | sentinel => sentinel
+    | node =>
+      popped = stack
+      stack = stack.pre
+      popped
+  end
+where:
+
+end
+
+var myStack = sentinel
+
+stack-push(myStack, 3)
+stack-push(myStack, 4)
+
+
+fun rpn-evaluate(tokens :: Array, stack :: Stack) -> Array:
+  
+where:
+  rpn-evaluate([array: "3", "3", "+"]) is 6
+  rpn-evaluate([array: "3", "4", "-"]) is -1
+end

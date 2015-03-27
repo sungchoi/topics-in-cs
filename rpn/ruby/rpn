@@ -3,7 +3,7 @@ require_relative 'rpn.rb'
 
 input = ""
 while input != "exit"
-  printf "evaluate:"
-  input = gets.chomp.strip
+  print "rpn evaluate:"
+  input = gets.strip
   puts RPN::Expression.new(input).evaluate
 end
