@@ -119,31 +119,6 @@ class BinarySearchTreeNode < BinaryTreeNode
     elsif value > @value
       BinarySearchTreeNode.new(@value, @left, @right.remove(value))
     end
-
-    # if value < @value
-    #   self.left = self.left.remove(value)
-    # elsif value > @value
-    #   self.right = self.right.remove(value)
-    # elsif left.empty?
-    #   right_min = right.min
-    #   self.right = self.right.remove(right_min)
-    #   self.value = right_min
-    # else
-    #   left_max = @left.max
-    #   @left = @left.remove(left_max)
-    #   @value = left_max
-    # end
-    # self
-    # dup = self.dup
-    # if value == @value
-    #   return @left.dup.insert_subtree(@right.dup)
-    # elsif value < @value
-    #   dup.left = @left.dup.remove(value)
-    # else
-    #   dup.right = @right.dup.remove(value)
-    # end
-
-    # dup
   end
 
   # @param [Comparable] value
