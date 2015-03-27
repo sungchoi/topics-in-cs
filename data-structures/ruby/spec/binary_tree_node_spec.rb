@@ -1,7 +1,7 @@
 require_relative '../binary_tree_node'
 
 describe BinaryTreeNode do
-  let(:tree) { BinaryTreeNode.new(2, {left: BinaryTreeNode.new(1), right: BinaryTreeNode.new(3)}) }
+  let(:tree) { BinaryTreeNode.new(2, BinaryTreeNode.new(1), BinaryTreeNode.new(3)) }
 
   it "#value" do
     #TODO

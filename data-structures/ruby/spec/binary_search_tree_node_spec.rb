@@ -3,8 +3,8 @@ require_relative '../binary_search_tree_node'
 describe BinarySearchTreeNode do
 
   context "#include?(value)" do
-    let(:tree){ BinarySearchTreeNode.new(2, { left: BinarySearchTreeNode.new(1), right: BinarySearchTreeNode.new(3) }) }
-    let(:unsorted_tree){ BinarySearchTreeNode.new(1, { left: BinarySearchTreeNode.new(2), right: BinarySearchTreeNode.new(3) }) }
+    let(:tree){ BinarySearchTreeNode.new(2, BinarySearchTreeNode.new(1), BinarySearchTreeNode.new(3)) }
+    let(:unsorted_tree){ BinarySearchTreeNode.new(1, BinarySearchTreeNode.new(2), BinarySearchTreeNode.new(3)) }
 
     it "returns true when the value is == to a value held by the root node in the tree" do
       expect(tree.include?(2)).to eq(true)
@@ -29,7 +29,7 @@ describe BinarySearchTreeNode do
     it "inserts the value into the tree" do
       tree = BinarySearchTreeNode.new(1)
       tree = tree.insert(2)
-      expect(tree).to eq(BinarySearchTreeNode.new(1, { right: BinarySearchTreeNode.new(2) } ))
+      expect(tree).to eq(BinarySearchTreeNode.new(1, BinarySearchTreeNode, BinarySearchTreeNode.new(2)))
       expect(tree.include?(2)).to eq(true)
       tree = tree.insert(3)
       tree = tree.insert(5)
@@ -49,9 +49,16 @@ describe BinarySearchTreeNode do
       tree = tree.remove(1)
       expect(tree.include?(1)).to eq(false)
 
-      tree = BinarySearchTreeNode.new(1, {right: BinarySearchTreeNode.new(2)})
+      tree = BinarySearchTreeNode.new(1, BinarySearchTreeNode, BinarySearchTreeNode.new(2))
       tree = tree.remove(2)
       expect(tree.include?(2)).to eq(false)
+
+      tree = BinarySearchTreeNode.new(1,  BinarySearchTreeNode.new(0),
+                                          BinarySearchTreeNode.new(7,
+                                            BinarySearchTreeNode.new(4, BinarySearchTreeNode.new(3)), BinarySearchTreeNode.new(5, BinarySearchTreeNode, BinarySearchTreeNode.new(6))))
+      tree = tree.remove(4)
+      expect(tree.include?(4)).to eq(false)
+      expect(tree.sorted?).to eq(true)
     end
 
     it "removes all copies of the value from the tree -- can the tree hold duplicates??"
@@ -61,17 +68,17 @@ describe BinarySearchTreeNode do
     it "returns true when..."
   end
 
-  context "#size?" do
-    let(:tree){ BinarySearchTreeNode.new(2, { left: BinarySearchTreeNode.new(1), right: BinarySearchTreeNode.new(3) }) }
+  context "#size" do
+    let(:tree){ BinarySearchTreeNode.new(2, BinarySearchTreeNode.new(1), BinarySearchTreeNode.new(3)) }
 
     it "" do
-      expect(tree.size?).to eq(3)
+      expect(tree.size).to eq(3)
     end
   end
 
   context "#sorted?" do
-    let(:sorted_tree){ BinarySearchTreeNode.new(2, { left: BinarySearchTreeNode.new(1), right: BinarySearchTreeNode.new(3) }) }
-    let(:unsorted_tree){ BinarySearchTreeNode.new(1, { left: BinarySearchTreeNode.new(2), right: BinarySearchTreeNode.new(3) }) }
+    let(:sorted_tree){ BinarySearchTreeNode.new(2, BinarySearchTreeNode.new(1), BinarySearchTreeNode.new(3)) }
+    let(:unsorted_tree){ BinarySearchTreeNode.new(1, BinarySearchTreeNode.new(2), BinarySearchTreeNode.new(3)) }
 
     it "returns true for a sorted tree" do
       expect(sorted_tree.sorted?).to eq(true)

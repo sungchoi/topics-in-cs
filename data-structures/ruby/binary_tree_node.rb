@@ -12,15 +12,58 @@ class BinaryTreeNode
   include Enumerable
   attr_reader :value, :left, :right
 
-  def initialize(value = nil, opts = {})
+# Class Methods
+  def self.value
+    nil
+  end
+
+  def self.size
+    0
+  end
+
+  def self.height
+    0
+  end
+
+  def self.empty?
+    true
+  end
+
+  def self.sorted?
+    true
+  end
+
+  def self.pre_order
+  end
+
+  def self.in_order
+  end
+
+  def self.post_order
+  end
+
+# Instance Methods
+  def initialize(value = nil, left = BinaryTreeNode, right = BinaryTreeNode)
     @value = value
-    @left  = opts.fetch(:left, nil)
-    @right = opts.fetch(:right, nil)
+    @left  = left
+    @right = right
   end
 
   # @return [Array<BinaryTree::Node>]
   def children
     [@left, @right]
+  end
+
+  def empty?
+    false
+  end
+
+  def sorted?
+    return false if left.value > self.value
+    return false if right.value < self.value
+    left.sorted?
+    right.sorted?
+    return true
   end
 
   def each(option = :pre_order, &block)
@@ -56,18 +99,11 @@ class BinaryTreeNode
   end
 
   def size
-    size?
+    1 + left.size + right.size
   end
 
-  def size?(memo = 0)
-    memo += 1
-    memo = left.size?(memo) if left
-    memo = right.size?(memo) if right
-    memo
-  end
-
-  def to_a
-    self.map { |e| e }
+  def height
+    1 + [left.height, right.height].max
   end
 
   def ==(other)
