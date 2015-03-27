@@ -16,9 +16,8 @@ class BinarySearchTree
 
   # @param [Object, Object] key_value
   # @return [BinarySearchTree]
-  def insert(key_value)
-    # key_value = Array(key_value) #coersion
-    @root = @root.insert(key_value)
+  def insert(key)
+    @root = @root.insert(key)
     self
   end
 
@@ -34,20 +33,14 @@ class BinarySearchTree
     @root.find(key)
   end
 
-  # @return [Integer]
-  def size
-    # TODO Cache Size
-    size?
-  end
-
   # @return [Boolean]
   def empty?
-    size == 0
+    @root.empty?
   end
 
   # @return [Integer]
-  def size?
-    @root.size?
+  def size
+    @root.size
   end
 
   # @return [Boolean]

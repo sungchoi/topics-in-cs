@@ -16,14 +16,32 @@ module SymbolicCalculator
       @value && @left && @right
     end
 
+    def leaf?
+      @left.nil? && @right.nil?
+    end
+
     # @return [SymbolicCalculator::Expression]
     def evaluate
-      simplify.do_arithmetic
+      if leaf?
+        self
+      elsif BINARY_OPERATORS.include?(@value) && // both numbers
+        @left.value.class == (Fixnum || Bignum || Integer) &&
+        @right.value.class == (Fixnum || Bignum || Integer)
+
+        do_arithmetic
+      elsif BINARY_OPERATORS.include?(@value) && ((@left.full? && @right.leaf?) || (@left.leaf? && @right.full?)) # left or right are complex expressions
+        simplify
+      elsif BINARY_OPERATORS.include?(@value) && (@left.full? && @right.full?)
+        simplify
+      else
+        @left = @left.evaluate
+        @right = @right.evaluate
+      end
     end
 
     def to_s
       if full?
-        "#{@left} #{@right} #{@value}"
+        "#{@left.to_s} #{@right} #{@value.to_s}"
       else
         "#{@value}"
       end
@@ -31,14 +49,10 @@ module SymbolicCalculator
 
     # @return [SymbolicCalculator::Expression]
     def do_arithmetic
-      if BINARY_OPERATORS.include?(@value) &&
-        @left.value.class == (Fixnum || Bignum || Integer) &&
-        @right.value.class == (Fixnum || Bignum || Integer)
 
         @value  = ARITHMETIC_TABLE[@value].call(@left.value, @right.value)
         @left   = nil
         @right  = nil
-      end
 
       self
     end
@@ -47,30 +61,31 @@ module SymbolicCalculator
     def simplify
       complex_simplification
       simple_simplification
+      do_arithmetic
     end
 
     # @return [SymbolicCalculator::Expression]
     def complex_simplification
-      if BINARY_OPERATORS.include?(@value) && (@left.full? || @right.full?) # left or right are complex expressions
+      # if BINARY_OPERATORS.include?(@value) && (@left.full? || @right.full?) # left or right are complex expressions
         case [@value, @left.value, @right.value]
         when ["*", "**", @right.value]
           if @left.left.value == @right.value
             @value = "**"
-            @right = SymbolicCalculator::Expression.new("+", @left.right, SymbolicCalculator::Expression.new(1)).simple_simplification.do_arithmetic
+            @right = SymbolicCalculator::Expression.new("+", @left.right, SymbolicCalculator::Expression.new(1)).evaluate
             @left = @left.left
           end
         when ["/", "**", @right.value]
           if @left.left.value == @right.value
             @value = "**"
-            @right = SymbolicCalculator::Expression.new("-", @left.right, SymbolicCalculator::Expression.new(1)).simple_simplification.do_arithmetic
+            @right = SymbolicCalculator::Expression.new("-", @left.right, SymbolicCalculator::Expression.new(1)).evaluate
             @left = @left.left
           end
         when ["**", "**", @right.value]
             @value = "**"
-            @right = SymbolicCalculator::Expression.new("*", @left.right, @right).simple_simplification.do_arithmetic
+            @right = SymbolicCalculator::Expression.new("*", @left.right, @right).evaluate
             @left = @left.left
         end
-      end
+      # end
 
       self
     end

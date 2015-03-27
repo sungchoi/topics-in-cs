@@ -12,7 +12,7 @@ module BTree
     end
 
     # def findTopMostNotFullNode
-      recurse through levels and return first 
+      # recurse through levels and return first 
     # end
 
   end
@@ -21,10 +21,10 @@ module BTree
 
     attr_accessor :value, :left, :right
 
-    def initialize(value, left, right)
-      @value  = value
-      @left   = left
-      @right  = right
+    def initialize(options = {})
+      @value  = options.fetch(:value, nil)
+      @left   = options.fetch(:left, nil)
+      @right  = options.fetch(:right, nil)
     end
 
     def full?
@@ -43,24 +43,27 @@ module BTree
       !full
     end
 
-  end
-
-  class Leaf < Node  # wonder if needing to transform leaves into normal nodes in the case of adding onto a tree is worth the benefits of subclassing
-
-    def initialize(value)
-      @value  = value
-      @left   = nil
-      @right  = nil
+    def to_leaf
+      Leaf.new(self.value)
     end
 
   end
 
-  class Sentinel < Leaf
+  class Leaf
+    def initialize(value)
+      @value  = value
+    end
+
+    def to_node(options = {})
+      # allows for the overriding of the value
+      Node.new({value: self.value}.merge(options))
+    end
+
+  end
+
+  class Sentinel
 
     def initialize
-      @value  = nil
-      @left   = nil
-      @right  = nil
     end
 
   end

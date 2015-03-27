@@ -24,6 +24,18 @@ class BinarySearchTreeNode < BinaryTreeNode
 # Class Methods
 ############################################################
 
+  def self.value
+    nil
+  end
+
+  def self.min
+    nil
+  end
+
+  def self.max
+    nil
+  end
+
   def self.insert(value)
     BinarySearchTreeNode.new(value)
   end
@@ -40,35 +52,21 @@ class BinarySearchTreeNode < BinaryTreeNode
     false
   end
 
-  def self.size?(memo = 0)
-    memo
+  def empty?
+    true
   end
 
   def self.sorted?
     true
   end
 
-  def self.value
-    0
-  end
-
-  def self.pre_order
-  end
-
-  def self.in_order
-  end
-
-  def self.post_order
-  end
-
 ############################################################
 # Instance Methods
 ############################################################
 
-  def initialize(value, opts = {})
-    opts[:left]  ||= BinarySearchTreeNode
-    opts[:right] ||= BinarySearchTreeNode
-    super(value, opts)
+  def initialize(value, left = BinarySearchTreeNode, right = BinarySearchTreeNode)
+    #TODO Remove dependency on BinaryTreeNode. Make BinarySearchTreeNode an independent class.
+    super(value, left, right)
   end
 
   # @time worst-case BigO(n)
@@ -86,41 +84,41 @@ class BinarySearchTreeNode < BinaryTreeNode
   # @param [Comparable] value
   # @return [BinarySearchTreeNode]
   def insert(value)
-    dup = self.dup
-    return dup if value == @value
+    return self if value == @value
     if value < @value
-      dup.left = @left.dup.insert(value)
+      BinarySearchTreeNode.new(@value, @left.insert(value), @right)
     else
-      dup.right = @right.dup.insert(value)
+      BinarySearchTreeNode.new(@value, @left, @right.insert(value))
     end
-
-    dup
   end
 
 #  # @time BigO(n) linear
 #  # TODO: @time BigO(log n)
   def insert_subtree(subtree)
-    new_tree = self.dup
-    subtree.each do |value|
-      new_tree = new_tree.insert(value)
+    subtree_value = subtree.value
+    if subtree_value < @value
+      BinarySearchTreeNode.new(@value, @left.insert_subtree(subtree), @right)
+    elsif subtree_value > @value
+      BinarySearchTreeNode.new(@value, @left, @right.insert_subtree(subtree))
     end
-
-    new_tree
   end
 
   # @time worst-case BigO(n)
   # @time average BigO(log n)
   def remove(value)
-    dup = self.dup
-    if value == @value
-      return @left.dup.insert_subtree(@right.dup)
-    elsif value < @value
-      dup.left = @left.dup.remove(value)
-    else
-      dup.right = @right.dup.remove(value)
-    end
+    return BinarySearchTreeNode if @value == value && @left.empty? && @right.empty?
 
-    dup
+    if value == @value
+      max_value = max
+      return BinarySearchTreeNode.new(max_value, @left.insert_subtree(@right.remove(max_value))) if max_value
+
+      min_value = min
+      return BinarySearchTreeNode.new(min_value, BinarySearchTreeNode, @right.insert_subtree(@left.remove(min_value))) if min_value
+    elsif value < @value
+      BinarySearchTreeNode.new(@value, @left.remove(value), @right)
+    elsif value > @value
+      BinarySearchTreeNode.new(@value, @left, @right.remove(value))
+    end
   end
 
   # @param [Comparable] value
@@ -135,24 +133,64 @@ class BinarySearchTreeNode < BinaryTreeNode
     end
   end
 
-  def sorted?
-    return false if left.value > self.value
-    return false if right.value < self.value
-    left.sorted?
-    right.sorted?
-    return true
+  def min
+    [@left.min, @value].select { |obj| obj }.min
   end
 
-  def min
-    find_min_node.value
+  def max
+    [@right.max, @value].select { |obj| obj }.max
   end
 
   def find_min_node
     current_node = self
-    while current_node.left
+    while current_node.left.instance_of?(BinarySearchTreeNode)
       current_node = current_node.left
     end
     current_node
+  end
+
+  # @time BigO(log n)
+  def find_max_node
+    current_node = self
+    while current_node.right.instance_of?(BinarySearchTreeNode)
+      current_node = current_node.right
+    end
+    current_node
+  end
+
+  # @time BigO(log n)
+  def find_and_remove_min_node
+
+  end
+
+  # @time BigO(log n)
+  def find_and_remove_max_node
+  end
+
+  # @time BigO(log n)
+  # @return [Comparable] min value
+  def find_and_remove_min_node!
+    current_node = self
+    left_child = current_node.left
+    while left_child.right.instance_of(BinarySearchTreeNode)
+      current_node = left_child
+      left_child = left_child.left
+    end
+    @left = BinarySearchTreeNode
+    left_child.value
+  end
+
+  # @time BigO(log n)
+  # @return [Comparable] max value
+  def find_and_remove_max_node!
+    current_node = self
+    right_child = current_node.right
+    while right_child.right.instance_of(BinarySearchTreeNode)
+      current_node = right_child
+      right_child = right_child.right
+    end
+    @right = BinarySearchTreeNode
+    right_child.value
   end
 
   protected
