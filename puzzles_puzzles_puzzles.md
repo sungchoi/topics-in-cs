@@ -37,6 +37,16 @@ end
 1. Write a function that takes a string as input and checks whether _some_ permutation of the input string is a palindrome. O(n) time and space.
 1. Write a function that checks whether a given Binary Tree is a valid Binary Search Tree.  O(n) time and space.
 1. Given a list of unsorted scores and a highest possible scores, return a sorted list of scores in less than O(nlog(n)) time.
+
+Assuming scores are positive integers.
+Create an array of length of highest score (+1 to include 0)
+Iterate through scores add one to the value at the index matching the value
+Turn that array into a sorted array
+
+Cons memory
+
+
+
 1. Given a function rand7() that returns a random integer from 1 to 7 with equal probability, write a function rand5() that returns a random integer from 1 to 5 with equal probability.
 1. Given an array_of_ints, find the highest_product you can get from three of the integers in O(n) time and O(1) space.  Can you generalize highest product of 4?  Highest product of _k_ for arbitrary k?
 1. Write a TemperatureTracker class that supports:
