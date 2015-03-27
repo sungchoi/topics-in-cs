@@ -1,55 +1,119 @@
 module NTree
 
-    # def initialize(value, parent = nil, children = nil)
+    # def initialize(value, parent = nil)
     #   @value = value
     #   @parent = parent
-    #   @children = children
+    #   @first_child
+    #   @last_child
     # end
 
     def root?
       @parent.nil?
     end
 
-    # @return [NTree]
-    def head_child
-      if @children
-        @children.head
-      else
-        nil
-      end
+    def has_children?
+      @first_child
+    end
+
+    def first_child?
+      !@prev
+    end
+
+    def last_child?
+      !@next
+    end
+
+    def first_child
+      @first_child
     end
 
     # @param [*] value
-    def head_child=(value)
-      @children.prepend(value)
+    def first_child=(value)
+      prepend(value)
     end
 
-    # @param [*] value
-    def append_child(value, parent = self, children = nil, nxt = nil, prev = nil)
-      if @children.nil?
-        @children = self.class.new(value, parent, children, nxt, prev) #wrapper with head and tail?
+    def last_child
+      @last_child
+    end
+
+    def last_child=(child)
+      append(child)
+    end
+
+    def append_child(child)
+      append(child)
+    end
+
+    def append_sibling(sibling)
+      if @parent
+        @parent.append(sibling)
       else
-        @children = @children.append(self.class.new(value, parent))
+        @next = sibling
+        sibling.prev = self
       end
     end
 
-    # @param [*] value
-    def prepend_child(value)
-      if @children.nil?
-        @children = self.class.new(value)
+    def prepend_sibling(sibling)
+      if @parent
+        @parent.prepend(sibling)
       else
-        @children = @children.prepend(self.class.new(value))
+        @prev = sibling
+        sibling.next = self
       end
     end
 
-    # @param [Enumerable<*>] children
-    def prepend_children(children)
-      children.length.times { prepend_child(children.pop) }
+    # @param [NTree]
+    def prepend(link)
+      if empty?
+        @head = link
+        @tail = link
+        @next = nil
+        @prev = nil
+      else
+        old_head = @head
+        @head = link
+        link.next = old_head
+        old_head.prev = link
+      end
     end
 
-    # @param [Enumerable<*>] children
-    def append_children(children)
-      children.each { | child | append_child(child) }
+    def append(value)
+      if empty?
+        @head = link
+        @tail = link
+        @next = nil
+        @prev = nil
+      else
+        old_tail = @tail
+        @tail = link
+        old_tail.next = link
+        link.prev = old_tail
+      end
+    end
+
+    def insert(link, index)
+      case index
+      when 0
+        prepend(value)
+      when -1
+        append(value)
+      elsif index < -1
+
+        # (length - 1)times do
+        #
+      else #positive
+        base = @head
+        index.times do
+          base.next
+        end
+
+        link_at_index = base
+        link_at_index_prev = link_at_index.prev
+        link_at_index.prev = link
+        link_at_index_prev.next = link
+        link.next = link_at_index
+        link.prev = link_at_index_prev
+      end
     end
 
 end
