@@ -14,12 +14,21 @@ class MaxHeap
   end
 
   def delete
-    MaxHeap.new([@array[-1]] + @array[1..-2]).max_heapify_down!
+    if @array.length < 2
+      MaxHeap.new([])
+    else
+      MaxHeap.new([@array[-1]] + @array[1..-2]).max_heapify_down!
+    end
   end
 
   def delete!
-    @array = [@array[-1]] + @array[1..-2]
-    max_heapify_down!
+    if @array.length < 2
+      @array.pop
+      return self
+    else
+      @array = [@array[-1]] + @array[1..-2]
+      max_heapify_down!
+    end
   end
 
   def empty?
