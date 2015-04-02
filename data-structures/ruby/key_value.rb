@@ -15,11 +15,16 @@ end
 
 class KeyValue
 
+  include Comparable
   attr_reader :key, :value
 
   def initialize(key, value)
     @key   = key
     @value = value
+  end
+
+  def <=>(other)
+    @key <=> other.key
   end
 
   def to_a
