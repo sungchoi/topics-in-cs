@@ -6,6 +6,7 @@ class MaxHeap
 
   def initialize(array = [])
     @array = array.map { |e| KeyValue(e) }
+    #heapify to sort the array
   end
 
   def ==(other)
@@ -38,10 +39,11 @@ class MaxHeap
     i = @array.length - 1
     while i > 0
       return self if @array[i] <= @array[parent_index(i)]
-
       swap!(i, parent_index(i))
       i = parent_index(i)
     end
+
+    self
   end
 
   def max_heapify_down!
@@ -114,7 +116,8 @@ class MaxHeap
 
   def parent_index(i)
     i = i / 2
-    i -= 1 if even?(i)
+    i = i - 1 if even?(i) && i > 0
+    i
   end
 
   def right_child_index(i)

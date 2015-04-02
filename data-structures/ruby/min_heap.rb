@@ -74,6 +74,8 @@ class MinHeap
         return self
       end
     end
+
+    self
   end
 
   def min_heapify_down!
@@ -113,7 +115,8 @@ class MinHeap
 
   def parent_index(i)
     i = i / 2
-    i -= 1 if even?(i)
+    i = i - 1 if even?(i) && i > 0
+    i
   end
 
   def right_child_index(i)
