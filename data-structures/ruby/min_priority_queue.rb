@@ -8,6 +8,7 @@ class MinPriorityQueue
 
   def enqueue(priority_level, task)
     @min_heap.insert!([priority_level, task])
+    self
   end
 
   def dequeue

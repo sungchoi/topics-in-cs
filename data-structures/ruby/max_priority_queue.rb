@@ -9,6 +9,7 @@ class MaxPriorityQueue
 
   def enqueue(priority_level, task)
     @max_heap.insert!([priority_level, task])
+    self
   end
 
   def dequeue
