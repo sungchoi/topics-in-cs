@@ -21,6 +21,10 @@ class MaxHeap
     max_heapify_down!
   end
 
+  def empty?
+    @array.length == 0
+  end
+
   def insert(key_value)
     MaxHeap.new(@array + [KeyValue(key_value)]).max_heapify_up!
   end
@@ -33,7 +37,7 @@ class MaxHeap
   def max_heapify_up!
     i = @array.length - 1
     while i > 0
-      return if @array[i] <= @array[parent_index(i)]
+      return self if @array[i] <= @array[parent_index(i)]
 
       swap!(i, parent_index(i))
       i = parent_index(i)
@@ -50,7 +54,7 @@ class MaxHeap
       largest = left  if left  <= @array.length - 1 && @array[left]  > @array[largest]
       largest = right if right <= @array.length - 1 && @array[right] > @array[largest]
       if largest == i
-        return
+        return self
       else
         swap!(i, largest)
         i = largest
@@ -67,13 +71,31 @@ class MaxHeap
     largest = right if right <= @array.length - 1 && @array[right] > @array[largest]
     if i != largest
       swap!(i, largest)
-      max_heapify_down!(largest)
+      max_heapify_down_recursive!(largest)
+    else
+      return self
     end
 
   end
 
   def peek
     @array[0]
+  end
+
+  def pop!
+    root   = @array[0]
+    @array[0] = @array.pop
+    max_heapify_down!
+    root
+  end
+
+  def replace(key_value)
+    MaxHeap.new([KeyValue(key_value)] + @array[1..-1]).max_heapify_down!
+  end
+
+  def replace!(key_value)
+    @array[0] = KeyValue(key_value)
+    max_heapify_down!
   end
 
   private

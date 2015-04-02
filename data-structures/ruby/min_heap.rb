@@ -21,6 +21,10 @@ class MinHeap
     min_heapify_down!
   end
 
+  def empty?
+    @array.length == 0
+  end
+
   def insert(key_value)
     MinHeap.new(@array + [KeyValue(key_value)]).min_heapify_up!
   end
@@ -32,6 +36,22 @@ class MinHeap
 
   def peek
     @array[0]
+  end
+
+  def pop!
+    root = @array[0]
+    @array[0] = @array.pop
+    min_heapify_down!
+    root
+  end
+
+  def replace(key_value)
+    MinHeap.new([KeyValue(key_value)] + @array[1..-1]).min_heapify_down!
+  end
+
+  def replace!(key_value)
+    @array[0] = KeyValue(key_value)
+    min_heapify_down!
   end
 
   private
@@ -51,7 +71,7 @@ class MinHeap
         @array[i], @array[parent_index(i)] = @array[parent_index(i)], @array[i]
         i = parent_index(i)
       else
-        return
+        return self
       end
     end
   end
@@ -69,7 +89,7 @@ class MinHeap
         swap!(i, smallest)
         i = smallest
       else
-        return
+        return self
       end
     end
   end
@@ -83,7 +103,7 @@ class MinHeap
     smallest = right if right <= @array.length - 1 && @array[right] < @array[smallest]
     if smallest != i
       swap!(i, smallest)
-      min_heapify_down!(smallest)
+      min_heapify_down_recursive!(smallest)
     end
   end
 
