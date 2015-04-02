@@ -18,7 +18,7 @@ class KeyValue
   include Comparable
   attr_reader :key, :value
 
-  def initialize(key, value)
+  def initialize(key, value = nil)
     @key   = key
     @value = value
   end
@@ -29,6 +29,10 @@ class KeyValue
 
   def to_a
     [@key, @value]
+  end
+
+  def to_s
+    "Key: #{@key}, Value: #{@value}"
   end
 
 end
