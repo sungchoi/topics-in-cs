@@ -33,9 +33,9 @@ class MaxHeap
   def max_heapify_up!
     i = @array.length - 1
     while i > 0
-      return if @array[i].key <= @array[parent_index(i)].key
+      return if @array[i] <= @array[parent_index(i)]
 
-      @array[i], @array[parent_index(i)] = @array[parent_index(i)], @array[i]
+      swap!(i, parent_index(i))
       i = parent_index(i)
     end
   end
@@ -47,12 +47,12 @@ class MaxHeap
     right   = right_child_index(largest)
 
     while largest < @array.length
-      largest = left if left <= @array.length - 1 && @array[left].key > @array[largest].key
-      largest = right if right <= @array.length - 1 && @array[right].key > @array[largest].key
+      largest = left  if left  <= @array.length - 1 && @array[left]  > @array[largest]
+      largest = right if right <= @array.length - 1 && @array[right] > @array[largest]
       if largest == i
         return
       else
-        swap(i, largest)
+        swap!(i, largest)
         i = largest
       end
     end
@@ -63,8 +63,8 @@ class MaxHeap
     right   = right_child_index(i)
     largest = i
 
-    largest = left    if left  <= @array.length - 1 && @array[left].key  > @array[largest].key
-    largest = right   if right <= @array.length - 1 && @array[right].key > @array[largest].key
+    largest = left  if left  <= @array.length - 1 && @array[left]  > @array[largest]
+    largest = right if right <= @array.length - 1 && @array[right] > @array[largest]
     if i != largest
       swap!(i, largest)
       max_heapify_down!(largest)

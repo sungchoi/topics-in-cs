@@ -63,8 +63,8 @@ class MinHeap
     right    = right_child_index(smallest)
 
     while smallest < @array.length #check this
-      smallest = left  if left <= @array - 1 && @array[left].key < @array[smallest].key
-      smallest = right if right <= @array.length - 1 && @array[right].key < @array[smallest].key
+      smallest = left  if left  <= @array.length - 1 && @array[left]  < @array[smallest]
+      smallest = right if right <= @array.length - 1 && @array[right] < @array[smallest]
       if smallest != i
         swap!(i, smallest)
         i = smallest
@@ -79,8 +79,8 @@ class MinHeap
     right = right_child_index(i)
     smallest = i
 
-    smallest = left if left <= @array.length - 1 && @array[left].key < @array[smallest].key
-    smallest = right if right <= @array.length - 1 && @array[right].key < @array[smallest].key
+    smallest = left  if left  <= @array.length - 1 && @array[left]  < @array[smallest]
+    smallest = right if right <= @array.length - 1 && @array[right] < @array[smallest]
     if smallest != i
       swap!(i, smallest)
       min_heapify_down!(smallest)
