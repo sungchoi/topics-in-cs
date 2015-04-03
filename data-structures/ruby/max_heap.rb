@@ -133,10 +133,8 @@ class MaxHeap
     max_heapify_down!
   end
 
-  def parent_index(i)
-    index = i / 2
-    index = index - 1 if even?(i) && i > 0
-    index
+  def size
+    @array.length
   end
 
   private
