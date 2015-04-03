@@ -32,7 +32,7 @@ class KeyValue
   end
 
   def to_s
-    "Key: #{@key}, Value: #{@value}"
+    "<Key: #{@key}, Value: #{@value}>"
   end
 
 end
