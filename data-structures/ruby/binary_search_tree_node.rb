@@ -193,6 +193,14 @@ class BinarySearchTreeNode < BinaryTreeNode
     right_child.value
   end
 
+  def sorted?
+    return false if @left.instance_of?(BinarySearchTreeNode)  && @left.value > @value
+    return false if @right.instance_of?(BinarySearchTreeNode) && @right.value < @value
+    @left.sorted?
+    @right.sorted?
+    return true
+  end
+
   protected
   def left=(value)
     @left = value

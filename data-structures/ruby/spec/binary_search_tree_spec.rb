@@ -2,7 +2,7 @@ require_relative '../binary_search_tree'
 
 describe BinarySearchTree do
 
-  context "#include?(value)" do
+  describe "#include?(value)" do
     let(:empty_tree){ BinarySearchTree.new() }
     let(:tree){ BinarySearchTree.new().insert(3).insert(2).insert(1) }
 
@@ -26,7 +26,7 @@ describe BinarySearchTree do
     it "raises an error if the value argument does not match the type of values in the tree"
   end
 
-  context "#insert(value)" do
+  describe "#insert(value)" do
     let(:tree){ BinarySearchTree.new().insert(1) }
     it "inserts the value into the tree" do
       expect(tree.size).to eq(1)
@@ -38,12 +38,12 @@ describe BinarySearchTree do
     it "inserts the value into the tree in the correct location"
   end
 
-  context "#remove(value)" do
+  describe "#remove(value)" do
     it "removes the value from the tree"
     it "removes all copies of the value from the tree -- can the tree hold duplicates??"
   end
 
-  context "#empty?" do
+  describe "#empty?" do
     let(:empty){ BinarySearchTree.new() }
     let(:tree) { BinarySearchTree.new().insert(1)}
     it "returns true when there are no nodes in the tree, i.e. the root is Empty" do
