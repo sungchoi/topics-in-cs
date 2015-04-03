@@ -66,10 +66,6 @@ module LinkedList
       #TODO
     end
 
-    def insert
-      #TODO
-    end
-
     def peek
       @head.value
     end
@@ -78,7 +74,7 @@ module LinkedList
       @head.empty?
     end
 
-    def length?
+    def length
       length = 0
       placeholder = @head
       until placeholder.empty? do
