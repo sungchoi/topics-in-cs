@@ -6,11 +6,19 @@ class MaxHeap
 
   def initialize(array = [])
     @array = array.map { |e| KeyValue(e) }
-    #heapify to sort the array
+    build_max_heap!
   end
 
   def ==(other)
     @array == other.array
+  end
+
+  def build_max_heap!
+    return self if @array.length < 2
+    last_non_leaf_index = @array.length - 2 / 2
+    (last_non_leaf_index).downto(0) do |i|
+      max_heapify_down_recursive!(i)
+    end
   end
 
   def delete

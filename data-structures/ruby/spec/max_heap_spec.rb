@@ -2,6 +2,16 @@ require_relative '../max_heap'
 
 describe MaxHeap do
 
+  describe "#initialize" do
+    it "" do
+      expect(MaxHeap.new([54, 49, 7, 24, 33, 3, 2, 11]) == MaxHeap.new([2, 11, 7, 24, 33, 3, 54, 49])).to eq(true)
+    end
+  end
+
+  describe "#build_max_heap!" do
+    it ""
+  end
+
   describe "#==" do
     it " " do
       expect(MaxHeap.new.insert!(1).insert!(2) == MaxHeap.new.insert!(2).insert!(1)).to eq(true)
