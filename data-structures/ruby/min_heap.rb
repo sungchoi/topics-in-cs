@@ -89,7 +89,9 @@ class MinHeap
       smallest = right if right <= @array.length - 1 && @array[right] < @array[smallest]
       if smallest != i
         swap!(i, smallest)
-        i = smallest
+        i     = smallest
+        left  = left_child_index(smallest)
+        right = right_child_index(smallest)
       else
         return self
       end
@@ -106,6 +108,8 @@ class MinHeap
     if smallest != i
       swap!(i, smallest)
       min_heapify_down_recursive!(smallest)
+    else
+      return self
     end
   end
 
