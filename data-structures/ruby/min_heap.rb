@@ -34,50 +34,6 @@ class MinHeap
     min_heapify_up!
   end
 
-  def peek
-    @array[0]
-  end
-
-  def pop!
-    root = @array[0]
-    @array[0] = @array.pop
-    min_heapify_down!
-    root
-  end
-
-  def replace(key_value)
-    MinHeap.new([KeyValue(key_value)] + @array[1..-1]).min_heapify_down!
-  end
-
-  def replace!(key_value)
-    @array[0] = KeyValue(key_value)
-    min_heapify_down!
-  end
-
-  private
-
-  def even?(i)
-    i % 2 == 0
-  end
-
-  def left_child_index(i)
-    (i * 2) + 1
-  end
-
-  def min_heapify_up!
-    i = @array.length - 1
-    while i > 0
-      if @array[i] < @array[parent_index(i)]
-        @array[i], @array[parent_index(i)] = @array[parent_index(i)], @array[i]
-        i = parent_index(i)
-      else
-        return self
-      end
-    end
-
-    self
-  end
-
   def min_heapify_down!
     i        = 0
     smallest = i
@@ -111,6 +67,54 @@ class MinHeap
     else
       return self
     end
+  end
+
+  def min_heapify_up!
+    i = @array.length - 1
+    while i > 0
+      if @array[i] < @array[parent_index(i)]
+        @array[i], @array[parent_index(i)] = @array[parent_index(i)], @array[i]
+        i = parent_index(i)
+      else
+        return self
+      end
+    end
+
+    self
+  end
+
+  def peek
+    @array[0]
+  end
+
+  def pop!
+    root = @array[0]
+    @array[0] = @array.pop
+    min_heapify_down!
+    root
+  end
+
+  def replace(key_value)
+    MinHeap.new([KeyValue(key_value)] + @array[1..-1]).min_heapify_down!
+  end
+
+  def replace!(key_value)
+    @array[0] = KeyValue(key_value)
+    min_heapify_down!
+  end
+
+  def size
+    @array.length
+  end
+
+  private
+
+  def even?(i)
+    i % 2 == 0
+  end
+
+  def left_child_index(i)
+    (i * 2) + 1
   end
 
   def odd?(i)
