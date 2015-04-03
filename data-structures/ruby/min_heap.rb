@@ -114,9 +114,9 @@ class MinHeap
   end
 
   def parent_index(i)
-    i = i / 2
-    i = i - 1 if even?(i) && i > 0
-    i
+    index = i / 2
+    index = index - 1 if even?(i) && i > 0
+    index
   end
 
   def right_child_index(i)

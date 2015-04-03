@@ -47,9 +47,12 @@ class MaxHeap
   def max_heapify_up!
     i = @array.length - 1
     while i > 0
-      return self if @array[i] <= @array[parent_index(i)]
-      swap!(i, parent_index(i))
-      i = parent_index(i)
+      if @array[i] > @array[parent_index(i)]
+        swap!(i, parent_index(i))
+        i = parent_index(i)
+      else
+        return self
+      end
     end
 
     self
@@ -109,6 +112,12 @@ class MaxHeap
     max_heapify_down!
   end
 
+  def parent_index(i)
+    index = i / 2
+    index = index - 1 if even?(i) && i > 0
+    index
+  end
+
   private
 
   def even?(i)
@@ -121,12 +130,6 @@ class MaxHeap
 
   def odd?(i)
     i % 2 == 1
-  end
-
-  def parent_index(i)
-    i = i / 2
-    i = i - 1 if even?(i) && i > 0
-    i
   end
 
   def right_child_index(i)

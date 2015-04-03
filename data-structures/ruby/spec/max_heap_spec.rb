@@ -21,25 +21,35 @@ describe MaxHeap do
 
   describe "#peek" do
     it "" do
-      maxHeap = MaxHeap.new([3, 2, 1])
-      expect(maxHeap.peek.key).to eq(3)
-      expect(maxHeap.peek.value).to eq(nil)
+      max_heap = MaxHeap.new([3, 2, 1])
+      expect(max_heap.peek.key).to eq(3)
+      expect(max_heap.peek.value).to eq(nil)
     end
   end
 
   describe "#insert!" do
     it "" do
-      maxHeap = MaxHeap.new
-      maxHeap.insert!([1, "a"])
-      expect(maxHeap.peek.key).to eq(1)
-      expect(maxHeap.peek.value).to eq("a")
+      max_heap = MaxHeap.new
+      max_heap.insert!([1, "a"])
+      expect(max_heap.peek.key).to eq(1)
+      expect(max_heap.peek.value).to eq("a")
     end
 
     it "" do
-      maxHeap = MaxHeap.new
-      maxHeap.insert!([1, "a"]).insert!([2, "b"])
-      expect(maxHeap.peek.key).to eq(2)
-      expect(maxHeap.peek.value).to eq("b")
+      max_heap = MaxHeap.new
+      max_heap.insert!([1, "a"]).insert!([2, "b"])
+      expect(max_heap.peek.key).to eq(2)
+      expect(max_heap.peek.value).to eq("b")
+    end
+
+    it "" do
+      max_heap = MaxHeap.new.insert!(11).insert!(5)
+                           .insert!(10).insert!(3)
+                           .insert!(4).insert!(8)
+      max_heap_two = MaxHeap.new([11, 5, 10, 3, 4, 8])
+      puts "max_heap: #{max_heap.array}"
+      puts "max_heap_two: #{max_heap_two.array}"
+      expect(max_heap == max_heap_two).to eq(true)
     end
   end
 
@@ -47,7 +57,6 @@ describe MaxHeap do
     it " " do
       max_heap = MaxHeap.new.insert!(1)
       max_heap.delete!
-      puts max_heap.array
       expect(max_heap.empty?).to eq(true)
     end
 
@@ -56,6 +65,18 @@ describe MaxHeap do
       max_heap.delete!
       expect(max_heap.empty?).to eq(false)
       expect(max_heap.peek.key).to eq(1)
+    end
+  end
+
+  describe "#parent_index(i)" do
+    it "" do
+      max_heap = MaxHeap.new
+      expect(max_heap.parent_index(1)).to eq(0)
+      expect(max_heap.parent_index(2)).to eq(0)
+      expect(max_heap.parent_index(3)).to eq(1)
+      expect(max_heap.parent_index(4)).to eq(1)
+      expect(max_heap.parent_index(5)).to eq(2)
+      expect(max_heap.parent_index(6)).to eq(2)
     end
   end
 
