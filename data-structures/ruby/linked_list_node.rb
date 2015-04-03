@@ -11,8 +11,12 @@ class LinkedListNode
     true
   end
 
-  def length
+  def self.length
     0
+  end
+
+  def self.next
+    :__empty__
   end
 
   def self.peek
@@ -33,6 +37,10 @@ class LinkedListNode
 
   def self.shift
     self
+  end
+
+  def self.value
+    nil
   end
 
   include Enumerable
