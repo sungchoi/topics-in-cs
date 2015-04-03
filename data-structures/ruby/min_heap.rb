@@ -55,8 +55,8 @@ class MinHeap
   end
 
   def min_heapify_down_recursive!(i)
-    left = left_child_index(i)
-    right = right_child_index(i)
+    left     = left_child_index(i)
+    right    = right_child_index(i)
     smallest = i
 
     smallest = left  if left  <= @array.length - 1 && @array[left]  < @array[smallest]
