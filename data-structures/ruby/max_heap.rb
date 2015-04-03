@@ -15,8 +15,7 @@ class MaxHeap
 
   def build_max_heap!
     return self if @array.length < 2
-    last_non_leaf_index = @array.length - 2 / 2
-    (last_non_leaf_index).downto(0) do |i|
+    (last_non_leaf_index(@array.length)).downto(0) do |i|
       max_heapify_down_recursive!(i)
     end
   end
@@ -50,6 +49,11 @@ class MaxHeap
   def insert!(key_value)
     @array << KeyValue(key_value)
     max_heapify_up!
+  end
+
+  def last_non_leaf_index(array_length)
+    return 0 if array_length < 4
+    (array_length - 2) / 2
   end
 
   def max_heapify_up!

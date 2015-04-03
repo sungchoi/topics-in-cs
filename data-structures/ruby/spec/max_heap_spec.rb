@@ -91,6 +91,20 @@ describe MaxHeap do
     end
   end
 
+  describe "#last_non_leaf_index(array_length)" do
+    it "returns the correct index for a given length array" do
+      expect(MaxHeap.new.last_non_leaf_index(0)).to eq(0)
+      expect(MaxHeap.new.last_non_leaf_index(1)).to eq(0)
+      expect(MaxHeap.new.last_non_leaf_index(2)).to eq(0)
+      expect(MaxHeap.new.last_non_leaf_index(3)).to eq(0)
+      expect(MaxHeap.new.last_non_leaf_index(4)).to eq(1)
+      expect(MaxHeap.new.last_non_leaf_index(5)).to eq(1)
+      expect(MaxHeap.new.last_non_leaf_index(6)).to eq(2)
+      expect(MaxHeap.new.last_non_leaf_index(7)).to eq(2)
+      expect(MaxHeap.new.last_non_leaf_index(8)).to eq(3)
+    end
+  end
+
   describe "#parent_index(i)" do
     it "" do
       max_heap = MaxHeap.new
