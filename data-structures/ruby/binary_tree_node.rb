@@ -59,10 +59,10 @@ class BinaryTreeNode
   end
 
   def sorted?
-    return false if left.value > self.value
-    return false if right.value < self.value
-    left.sorted?
-    right.sorted?
+    return false if @left.instance_of?(BinaryTreeNode)  && @left.value > @value
+    return false if @right.instance_of?(BinaryTreeNode) && @right.value < @value
+    @left.sorted?
+    @right.sorted?
     return true
   end
 
