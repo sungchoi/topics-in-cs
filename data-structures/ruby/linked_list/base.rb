@@ -74,16 +74,6 @@ module LinkedList
       @head.empty?
     end
 
-    def length
-      length = 0
-      placeholder = @head
-      until placeholder.empty? do
-        length += 1
-        placeholder = placeholder.next
-      end
-      length
-    end
-
     def find_tail
       placeholder = @head
       if placeholder.empty?
