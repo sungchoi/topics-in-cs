@@ -47,8 +47,6 @@ describe MaxHeap do
                            .insert!(10).insert!(3)
                            .insert!(4).insert!(8)
       max_heap_two = MaxHeap.new([11, 5, 10, 3, 4, 8])
-      puts "max_heap: #{max_heap.array}"
-      puts "max_heap_two: #{max_heap_two.array}"
       expect(max_heap == max_heap_two).to eq(true)
     end
   end
@@ -65,6 +63,21 @@ describe MaxHeap do
       max_heap.delete!
       expect(max_heap.empty?).to eq(false)
       expect(max_heap.peek.key).to eq(1)
+    end
+
+    it "" do
+      max_heap = MaxHeap.new.insert!(11).insert!(5)
+                            .insert!(10).insert!(3)
+                            .insert!(4).insert!(8)
+      max_heap.delete!
+      expect(max_heap == MaxHeap.new([10, 5, 8, 3, 4])).to eq(true)
+
+    end
+
+    it " " do
+      max_heap = MaxHeap.new([10, 5, 8, 3, 4])
+      max_heap.delete!
+      expect(max_heap == MaxHeap.new([8, 5, 4, 3])).to eq(true)
     end
   end
 

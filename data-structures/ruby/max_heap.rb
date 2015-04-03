@@ -58,31 +58,46 @@ class MaxHeap
     self
   end
 
+  def max_heapify_up_recursive!(i)
+    if i < @array.length && @array[i] > @array[parent_index(i)]
+      swap!(i, parent_index(i))
+      max_heapify_up_recursive!(parent_index[i])
+    else
+      return self
+    end
+
+  end
+
   def max_heapify_down!
     i = 0
     largest = i
-    left    = left_child_index(largest)
-    right   = right_child_index(largest)
+    left    = left_child_index(i)
+    right   = right_child_index(i)
 
     while largest < @array.length
       largest = left  if left  <= @array.length - 1 && @array[left]  > @array[largest]
       largest = right if right <= @array.length - 1 && @array[right] > @array[largest]
-      if largest == i
-        return self
-      else
+
+      if largest != i
         swap!(i, largest)
-        i = largest
+        i       = largest
+        left    = left_child_index(i)
+        right   = right_child_index(i)
+      else
+        return self
       end
+
     end
   end
 
   def max_heapify_down_recursive!(i)
+    largest = i
     left    = left_child_index(i)
     right   = right_child_index(i)
-    largest = i
 
     largest = left  if left  <= @array.length - 1 && @array[left]  > @array[largest]
     largest = right if right <= @array.length - 1 && @array[right] > @array[largest]
+
     if i != largest
       swap!(i, largest)
       max_heapify_down_recursive!(largest)
@@ -90,6 +105,12 @@ class MaxHeap
       return self
     end
 
+  end
+
+  def parent_index(i)
+    index = i / 2
+    index = index - 1 if even?(i) && i > 0
+    index
   end
 
   def peek
