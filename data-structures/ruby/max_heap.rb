@@ -70,7 +70,7 @@ class MaxHeap
   def max_heapify_up_recursive!(i)
     if i < @array.length && @array[i] > @array[parent_index(i)]
       swap!(@array, i, parent_index(i))
-      max_heapify_up_recursive!(parent_index[i])
+      max_heapify_up_recursive!(parent_index(i))
     else
       return self
     end
