@@ -4,7 +4,12 @@ module BinaryArrayHeapUtil
     i % 2 == 0
   end
 
-   def left_child_index(i)
+  def last_non_leaf_index(array_length)
+    return 0 if array_length < 4
+    (array_length - 2) / 2
+  end
+
+  def left_child_index(i)
     (i * 2) + 1
   end
 

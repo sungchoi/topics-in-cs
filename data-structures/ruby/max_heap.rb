@@ -53,11 +53,6 @@ class MaxHeap
     max_heapify_up!
   end
 
-  def last_non_leaf_index(array_length)
-    return 0 if array_length < 4
-    (array_length - 2) / 2
-  end
-
   def max_heapify_up!
     i = @array.length - 1
     while i > 0
