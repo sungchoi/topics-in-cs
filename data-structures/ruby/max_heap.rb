@@ -1,7 +1,9 @@
 require_relative 'key_value'
+require_relative 'binary_array_heap_util'
 
 class MaxHeap
 
+  include BinaryArrayHeapUtil
   attr_reader :array
 
   def initialize(array = [])
@@ -60,7 +62,7 @@ class MaxHeap
     i = @array.length - 1
     while i > 0
       if @array[i] > @array[parent_index(i)]
-        swap!(i, parent_index(i))
+        swap!(@array, i, parent_index(i))
         i = parent_index(i)
       else
         return self
@@ -72,7 +74,7 @@ class MaxHeap
 
   def max_heapify_up_recursive!(i)
     if i < @array.length && @array[i] > @array[parent_index(i)]
-      swap!(i, parent_index(i))
+      swap!(@array, i, parent_index(i))
       max_heapify_up_recursive!(parent_index[i])
     else
       return self
@@ -91,7 +93,7 @@ class MaxHeap
       largest = right if right <= @array.length - 1 && @array[right] > @array[largest]
 
       if largest != i
-        swap!(i, largest)
+        swap!(@array, i, largest)
         i       = largest
         left    = left_child_index(i)
         right   = right_child_index(i)
@@ -111,18 +113,12 @@ class MaxHeap
     largest = right if right <= @array.length - 1 && @array[right] > @array[largest]
 
     if i != largest
-      swap!(i, largest)
+      swap!(@array, i, largest)
       max_heapify_down_recursive!(largest)
     else
       return self
     end
 
-  end
-
-  def parent_index(i)
-    index = i / 2
-    index = index - 1 if even?(i) && i > 0
-    index
   end
 
   def peek
@@ -148,27 +144,4 @@ class MaxHeap
   def size
     @array.length
   end
-
-  private
-
-  def even?(i)
-    i % 2 == 0
-  end
-
-  def left_child_index(i)
-    (i * 2) + 1
-  end
-
-  def odd?(i)
-    i % 2 == 1
-  end
-
-  def right_child_index(i)
-    (i * 2) + 2
-  end
-
-  def swap!(i, i2)
-    @array[i], @array[i2] = @array[i2], @array[i]
-  end
-
 end
