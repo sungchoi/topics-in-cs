@@ -4,8 +4,14 @@ def greatest_sum_contiguous_subarray(array)
   sum       = 0
   min_sum   = 0
   max_sum   = 0
+  greatest_number = array[0]
+  greatest_number_index = 0
 
   array.each_with_index do |int, index|
+    if int > greatest_number
+      greatest_number_index = index
+    end
+
     sum += int
 
     if sum < min_sum
@@ -20,5 +26,9 @@ def greatest_sum_contiguous_subarray(array)
 
   end
 
-  (range[0]...range[1])
+  if !array.empty? && range[0] == range[1]
+    (greatest_number_index...(greatest_number_index + 1))
+  else
+    (range[0]...range[1])
+  end
 end
