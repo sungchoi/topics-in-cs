@@ -1,4 +1,4 @@
-require_relative 'greatest_sum_contiguous_subarray'
+require_relative '../greatest_sum_contiguous_subarray'
 
 require 'rspec'
 

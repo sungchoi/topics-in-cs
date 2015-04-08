@@ -1,4 +1,4 @@
-require_relative 'least_sum_contiguous_subarray_circular'
+require_relative '../least_sum_contiguous_subarray_circular'
 
 require 'rspec'
 
