@@ -1,0 +1,81 @@
+transform ink into pink, using a matrix
+
+  i                      n                              k
+p pnk (replace)          pk (remove i and sub p)        p (removed i and n and replaced k with p)
+
+i pink(add p)            pik (replace n with i)         pi (removed one before and then replace k for i)
+
+n pinnk                  pink                           pin
+
+t pintnk                 pintk                          pint
+
+     0                        1                      2                              3
+0                             i                      n                              k
+1    p pink(add p)            pnk (replace)          pk (remove i and sub p)        p (removed i and n and replaced k with p)
+                           
+2    i piink(add pi)          pink(add p)            pik (replace n with i)         pi (removed one before and then replace k for i)
+                           
+3    n pinink(add pin)        pinnk                  pink                           pin
+                           
+4    t pintink(add pint)      pintnk                 pintk                          pint
+
+
+       p                      
+       pi
+       pin
+       pint
+
+       pink ink nk k
+
+       p
+       pi
+       pin
+       pint
+
+
+
+
+ink to inked
+
+ _ _ _ _
+p p_ _ _ _
+i pi _ _ _ _
+n pin _ _ _ _
+t pint _ _ _ _
+
+
+transform ink into pink
+
+  i                                 n                                k
+p use i for the first character     use n for the first character    use k for the first character
+
+i use i for the second character    use n for the second character   use k for the first character
+
+n use i for the third character     use n for the third character    use k for the third character
+
+t use i for the fourth character    use n for the fourth character
+
+(keep the letters following the letter used)
+
+
+Each time we move to the right, we remove a letter. Right is removal
+Down is an addition
+Right plus down is equal to a single diagonal move is a replacement or do nothing
+
+subtract one for do nothing moves
+
+
+each block is equal to its neighbors.min + 1 unless the row and col are the same letter (i.e. + 0 for no change)
+
+Distances
+  0 1  2  3
+    i  n  k
+1 p 1  2  3
+
+2 i 1  2  3
+
+3 n 2  1  2
+
+4 t 3  2  2
+
+

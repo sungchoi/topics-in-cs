@@ -59,10 +59,10 @@ class BinaryTreeNode
   end
 
   def sorted?
-    return false if left.value > self.value
-    return false if right.value < self.value
-    left.sorted?
-    right.sorted?
+    return false if @left.instance_of?(BinaryTreeNode)  && @left.value > @value
+    return false if @right.instance_of?(BinaryTreeNode) && @right.value < @value
+    @left.sorted?
+    @right.sorted?
     return true
   end
 
@@ -80,21 +80,21 @@ class BinaryTreeNode
   # Implement pre-order traversal of the tree
   def pre_order(&block)
     block.call(self.value)
-    left.pre_order(&block) if left
-    right.pre_order(&block) if right
+    left.pre_order(&block)
+    right.pre_order(&block)
   end
 
   # Implement in-order traversal of the tree
   def in_order(&block)
-    left.in_order(&block) if left
+    left.in_order(&block)
     block.call(self.value)
-    right.in_order(&block) if right
+    right.in_order(&block)
   end
 
   # Implement post-order traversal of the tree
   def post_order(&block)
-    left.post_order(&block) if left
-    right.post_order(&block) if right
+    left.post_order(&block)
+    right.post_order(&block)
     block.call(self.value)
   end
 

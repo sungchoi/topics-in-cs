@@ -66,26 +66,12 @@ module LinkedList
       #TODO
     end
 
-    def insert
-      #TODO
-    end
-
     def peek
       @head.value
     end
 
     def empty?
       @head.empty?
-    end
-
-    def length?
-      length = 0
-      placeholder = @head
-      until placeholder.empty? do
-        length += 1
-        placeholder = placeholder.next
-      end
-      length
     end
 
     def find_tail
