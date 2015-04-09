@@ -5,7 +5,7 @@ def greatest_sum_contiguous_subarray_circular(array)
   least_range = least_sum_contiguous_subarray(array)
 
   if least_range.last - least_range.first == 1 && array[least_range][0] > 0
-    ((least_range.last - 1)...(least_range.first + array.length))
+    (0...array.length)
   elsif least_range.last - least_range.first == array.length
     max_index = 0
     max_value = array[0]

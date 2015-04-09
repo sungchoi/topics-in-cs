@@ -26,9 +26,11 @@ describe "least_sum_contiguous_subarray_circular" do
     expect(least_sum_contiguous_subarray_circular(array_five)).to  eq((2...6))
   end
 
-  it "should return the range for the entire array when all numbers are negative" do
-    array_six = [-1, -2, -3]
+  it "should return the range for the entire array starting at 0 when all numbers are negative" do
+    array_six   = [-1, -2, -3]
+    array_seven = [-3, -2, -1]
     expect(least_sum_contiguous_subarray_circular(array_six)).to eq((0...3))
+    expect(least_sum_contiguous_subarray_circular(array_seven)).to eq((0...3))
   end
 
 end

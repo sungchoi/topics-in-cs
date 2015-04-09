@@ -9,9 +9,9 @@ describe "greatest_sum_contiguous_subarray_circular" do
   end
 
   it "should return the the entire range of indexes given an array of only positive integers" do
-    array_one    = [1,2]
-    array_two    = [1,2,3]
-    expect(greatest_sum_contiguous_subarray_circular(array_one)).to   eq((0...2))
+    array_one    = [1, 2, 3]
+    array_two    = [3, 2, 1]
+    expect(greatest_sum_contiguous_subarray_circular(array_one)).to   eq((0...3))
     expect(greatest_sum_contiguous_subarray_circular(array_two)).to   eq((0...3))
   end
 
