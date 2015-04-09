@@ -1,6 +1,3 @@
-# 1. Write a function that takes in an amount of money and denominations and returns the number of ways to arrive at the amount with those denominations.
-#order does not matter
-
 require 'bigdecimal'
 require 'bigdecimal/util'
 
@@ -27,27 +24,5 @@ def combinations_of_money(amount, denominations = [0.01, 0.05, 0.1, 0.25, 0.5, 1
   return memo.select do |hash|
     hash.map { |k, v| k * v }
         .reduce(:+) == amount 
-  end
-end
-
-require 'rspec'
-require 'bigdecimal'
-require 'bigdecimal/util'
-
-RSpec.describe "combinations_of_money" do
-  it "" do
-    expect(combinations_of_money(100, [100])).to eq([{100.to_d => 1.to_d}])
-  end
-
-  it "" do
-    expect(combinations_of_money(99, [100])).to eq([])
-  end
-
-  it "" do
-    expect(combinations_of_money(100, [1, 100])).to eq([{100.to_d => 0.to_d, 1.to_d => 100.to_d}, {100.to_d => 1.to_d, 1.to_d => 0.to_d}])
-  end
-
-  it "" do
-    expect(combinations_of_money(99, [1, 100])).to eq([{100.to_d => 0.to_d, 1.to_d => 99.to_d}])
   end
 end
