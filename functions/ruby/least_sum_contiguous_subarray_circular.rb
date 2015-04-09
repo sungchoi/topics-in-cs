@@ -9,16 +9,13 @@ def least_sum_contiguous_subarray_circular(array)
     min_index = 0
     min_value = array[0]
     array.each_with_index do |int, index|
-      min_index = index if int < min_value
+      if int < min_value
+        min_index = index
+        min_value = int
+      end
     end
     (min_index...(min_index + 1))
   else
     (max_sum_range.last...(max_sum_range.first + array.length))
   end
 end
-
-
-#[1,2]
-#(0...2)
-#[] => (0...0)
-#

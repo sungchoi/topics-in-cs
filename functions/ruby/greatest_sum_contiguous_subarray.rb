@@ -10,6 +10,7 @@ def greatest_sum_contiguous_subarray(array)
   array.each_with_index do |int, index|
     if int > greatest_number
       greatest_number_index = index
+      greatest_number = int
     end
 
     sum += int

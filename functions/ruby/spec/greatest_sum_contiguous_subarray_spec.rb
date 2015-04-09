@@ -26,10 +26,10 @@ describe "greatest_sum_contiguous_subarray" do
 
   it "should return the largest negative number when only negative numbers are in the array" do
     array_one   = [-1, -2, -3]
-    array_two   = [-1]
-    array_three = [-1, -2]
+    array_two   = [-3, -2, -1]
+    array_three = [-3, -1, -2]
     expect(greatest_sum_contiguous_subarray(array_one)).to   eq((0...1))
-    expect(greatest_sum_contiguous_subarray(array_two)).to   eq((0...1))
-    expect(greatest_sum_contiguous_subarray(array_three)).to eq((0...1))
+    expect(greatest_sum_contiguous_subarray(array_two)).to   eq((2...3))
+    expect(greatest_sum_contiguous_subarray(array_three)).to eq((1...2))
   end
 end

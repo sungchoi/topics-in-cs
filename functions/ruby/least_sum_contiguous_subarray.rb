@@ -10,6 +10,7 @@ def least_sum_contiguous_subarray(array)
   array.each_with_index do |int, index|
     if int < smallest_number
       smallest_number_index = index
+      smallest_number = int
     end
 
 

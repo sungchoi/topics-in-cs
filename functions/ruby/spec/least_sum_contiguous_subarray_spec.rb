@@ -25,10 +25,12 @@ describe "least_sum_contiguous_subarray" do
   end
 
   it "should return the range for the smallest number when all numbers are positive" do
-    array_six      = [1,2]
-    array_seven    = [1,2,3]
+    array_six      = [1, 2, 3]
+    array_seven    = [3, 2, 1]
+    array_eight    = [3, 1, 2]
     expect(least_sum_contiguous_subarray(array_six)).to   eq((0...1))
-    expect(least_sum_contiguous_subarray(array_seven)).to   eq((0...1))
+    expect(least_sum_contiguous_subarray(array_seven)).to eq((2...3))
+    expect(least_sum_contiguous_subarray(array_eight)).to eq((1...2))
   end
 
 end

@@ -23,7 +23,11 @@ describe "greatest_sum_contiguous_subarray_circular" do
   end
 
   it "should return the largest negative number when only negative numbers are in the array" do
-    array_five   = [-1, -2, -3]
+    array_five  = [-1, -2, -3]
+    array_six   = [-3, -2, -1]
+    array_seven = [-3, -1, -2]
     expect(greatest_sum_contiguous_subarray_circular(array_five)).to  eq((0...1))
+    expect(greatest_sum_contiguous_subarray_circular(array_six)).to   eq((2...3))
+    expect(greatest_sum_contiguous_subarray_circular(array_seven)).to eq((1...2))
   end
 end
