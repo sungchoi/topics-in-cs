@@ -13,18 +13,14 @@ def least_sum_contiguous_subarray(array)
       smallest_number = int
     end
 
-
-    puts "index: #{index}. int: #{int}"
     sum -= int
 
     if sum < max_sum
-      puts "sum #{sum} is less than max_sum #{max_sum}"
       max_sum = sum
       max_index = index
     end
 
     if sum + max_sum > min_sum
-      puts "sum #{sum} + max_sum #{max_sum} is greater than min_sum #{min_sum}"
       min_sum = sum - max_sum
       range = [max_index + 1, index + 1]
     end
