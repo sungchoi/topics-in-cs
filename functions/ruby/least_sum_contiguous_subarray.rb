@@ -1,5 +1,5 @@
 def least_sum_contiguous_subarray(array)
-  range = [0,0]
+  range = (0...0)
   max_index = -1
   sum = 0
   min_sum = 0
@@ -22,13 +22,13 @@ def least_sum_contiguous_subarray(array)
 
     if sum + max_sum > min_sum
       min_sum = sum - max_sum
-      range = [max_index + 1, index + 1]
+      range = ((max_index + 1)...(index + 1))
     end
   end
 
-  if range[0] == range[1] && !array.empty?
+  if range.first == range.last && !array.empty?
     (smallest_number_index...(smallest_number_index + 1))
   else
-    (range[0]...range[1])
+    range
   end
 end
