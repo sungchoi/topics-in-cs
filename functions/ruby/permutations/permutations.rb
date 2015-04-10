@@ -4,7 +4,7 @@ def permutations(array)
   results = []
   array.each_with_index do |item, index|
     permutations(array[0...index] + array[index+1..-1]).each do |perm|
-      results << perm.unshift(item)
+      results << perm.push(item)
     end
   end
 
