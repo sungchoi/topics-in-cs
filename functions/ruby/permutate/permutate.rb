@@ -2,17 +2,19 @@
 
 def permutate(array) # permutation method using recursion
   if array.length == 1
-    array
+    [array]
   else
     all = []
     array.each do |element|
-      copy = array.map{|x| x }
+      copy = array + []
       element = copy.delete_at(array.index(element))
       permutations = permutate(copy)
       all << permutations.map!{|p| [element].concat([p].flatten(2))}
     end
+
     all.flatten(1)
   end
+
 end
 
 # example: [3,2,1] ==> [3].concat([2].concat[1]) and [3].concat([1].concat[2]) then [2].concat([3].concat[1]) and [2].concat([1].concat[3]) then [1].concat([2].concat[3]) and [1].concat([3].concat[2])
