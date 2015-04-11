@@ -2,7 +2,7 @@
 #order does not matter
 
 # @return [Integer]
-def combinations_of_money_count(amount, denominations = [0.01, 0.05, 0.1, 0.25, 0.5, 1.0, 1, 2, 5, 10, 20, 50, 100], memo = [])
+def combinations_of_money_count(amount, denominations = [0.01, 0.05, 0.1, 0.25, 0.5, 1.0, 1, 2, 5, 10, 20, 50, 100])
   amount = (amount * 100).to_i
   denominations = denominations.sort.map { |n| (n * 100).to_i }
 
