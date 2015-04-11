@@ -1,5 +1,5 @@
 def factorial(n)
-  (1..n).inject { |product, i| product * i }
+  (1..n).inject(:*)
 end
 
 def factorial_inject(n)
