@@ -28,3 +28,5 @@ var levenshteinDistance = function(word1, word2){
 
   return matrix[word2.length][word1.length];
 };
+
+if (module) module.exports = levenshteinDistance;
