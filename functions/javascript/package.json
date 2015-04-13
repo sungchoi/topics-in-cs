@@ -1,0 +1,11 @@
+{
+  "name": "functions",
+  "private": true,
+  "scripts": {
+    "test": "mocha spec --reporter spec"
+  },
+  "devDependencies": {
+    "chai": "2.x.x",
+    "mocha": "2.x.x"
+  }
+}
