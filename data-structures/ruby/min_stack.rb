@@ -1,10 +1,10 @@
 require_relative 'stack'
 
-class MinStack < Stack
+class MinStack
 
   def initialize
-    super
-    @min_stack = Stack.new()
+    @stack     = Stack.new
+    @min_stack = Stack.new
   end
 
   def min
@@ -13,12 +13,12 @@ class MinStack < Stack
 
   def push(value)
     @min_stack.push(value) if @min_stack.empty? || @min_stack.peek <= value
-    super(value)
+    @stack(value)
   end
 
   def pop
     @max_stack.pop if peek == @max_stack.peek
-    super
+    @stack
   end
 
 end
