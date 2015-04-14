@@ -1,10 +1,10 @@
 require_relative 'stack'
 
-class MaxStack < Stack
+class MaxStack
 
   def initialize
-    super
-    @max_stack = Stack.new()
+    @stack     = Stack.new
+    @max_stack = Stack.new
   end
 
   def max
@@ -13,12 +13,12 @@ class MaxStack < Stack
 
   def push(value)
     @max_stack.push(value) if @max_stack.empty? || @max_stack.peek >= value
-    super(value)
+    @stack(value)
   end
 
   def pop
     @max_stack.pop if peek == @max_stack.peek
-    super
+    @stack
   end
 
 end
