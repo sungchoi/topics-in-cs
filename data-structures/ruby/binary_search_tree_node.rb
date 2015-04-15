@@ -69,6 +69,10 @@ class BinarySearchTreeNode < BinaryTreeNode
     super(value, left, right)
   end
 
+  def empty?
+    false
+  end
+
   # @time worst-case BigO(n)
   # @time average BigO(log n)
   # @return [Boolean]
@@ -95,11 +99,14 @@ class BinarySearchTreeNode < BinaryTreeNode
 #  # @time BigO(n) linear
 #  # TODO: @time BigO(log n)
   def insert_subtree(subtree)
+    return self if (!subtree.instance_of?(BinarySearchTreeNode))
     subtree_value = subtree.value
-    if subtree_value < @value
-      BinarySearchTreeNode.new(@value, @left.insert_subtree(subtree), @right)
+    if subtree_value == @value
+        BinarySearchTreeNodenew(@value, @left.insert_subtree(subtree.left), @right.insert_subtree(subtree.right))
     elsif subtree_value > @value
       BinarySearchTreeNode.new(@value, @left, @right.insert_subtree(subtree))
+    else
+      BinarySearchTreeNode.new(@value, @left.insert_subtree(subtree), @right)
     end
   end
 
