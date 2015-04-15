@@ -54,8 +54,14 @@ describe BinarySearchTreeNode do
       expect(tree.include?(2)).to eq(false)
 
       tree = BinarySearchTreeNode.new(1,  BinarySearchTreeNode.new(0),
-                                          BinarySearchTreeNode.new(7,
-                                            BinarySearchTreeNode.new(4, BinarySearchTreeNode.new(3)), BinarySearchTreeNode.new(5, BinarySearchTreeNode, BinarySearchTreeNode.new(6))))
+                                          BinarySearchTreeNode.new(3,
+                                            BinarySearchTreeNode.new(2),
+                                            BinarySearchTreeNode.new(4)))
+      tree = tree.remove(4)
+      expect(tree.include?(4)).to eq(false)
+      expect(tree.sorted?).to eq(true)
+
+      tree = BinarySearchTreeNode.new(4, BinarySearchTreeNode.new(3), BinarySearchTreeNode.new(7))
       tree = tree.remove(4)
       expect(tree.include?(4)).to eq(false)
       expect(tree.sorted?).to eq(true)
@@ -65,13 +71,19 @@ describe BinarySearchTreeNode do
   end
 
   describe "#empty?" do
-    it "returns true when..."
+    it "returns true when it is an uninstantiated node" do
+      expect(BinarySearchTreeNode.empty?).to eq(true)
+    end
+
+    it "returns false when it is an instantiated node" do
+      expect(BinarySearchTreeNode.new(1).empty?).to eq(false)
+    end
   end
 
   describe "#size" do
     let(:tree){ BinarySearchTreeNode.new(2, BinarySearchTreeNode.new(1), BinarySearchTreeNode.new(3)) }
 
-    it "" do
+    it "returns the number of nodes in the tree" do
       expect(tree.size).to eq(3)
     end
   end
