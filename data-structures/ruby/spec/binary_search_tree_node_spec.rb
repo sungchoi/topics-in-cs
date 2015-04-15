@@ -2,7 +2,7 @@ require_relative '../binary_search_tree_node'
 
 describe BinarySearchTreeNode do
 
-  context "#include?(value)" do
+  describe "#include?(value)" do
     let(:tree){ BinarySearchTreeNode.new(2, BinarySearchTreeNode.new(1), BinarySearchTreeNode.new(3)) }
     let(:unsorted_tree){ BinarySearchTreeNode.new(1, BinarySearchTreeNode.new(2), BinarySearchTreeNode.new(3)) }
 
@@ -24,7 +24,7 @@ describe BinarySearchTreeNode do
     it "raises an error if the value argument does not match the type of values in the tree"
   end
 
-  context "#insert(value)" do
+  describe "#insert(value)" do
 
     it "inserts the value into the tree" do
       tree = BinarySearchTreeNode.new(1)
@@ -39,7 +39,7 @@ describe BinarySearchTreeNode do
     it "inserts the value into the tree in the correct location"
   end
 
-  context "#remove(value)" do
+  describe "#remove(value)" do
     # let(:tree){ BinarySearchTreeNode.new(1) }
 
     it "removes the value from the tree" do
@@ -64,11 +64,11 @@ describe BinarySearchTreeNode do
     it "removes all copies of the value from the tree -- can the tree hold duplicates??"
   end
 
-  context "#empty?" do
+  describe "#empty?" do
     it "returns true when..."
   end
 
-  context "#size" do
+  describe "#size" do
     let(:tree){ BinarySearchTreeNode.new(2, BinarySearchTreeNode.new(1), BinarySearchTreeNode.new(3)) }
 
     it "" do
@@ -76,7 +76,7 @@ describe BinarySearchTreeNode do
     end
   end
 
-  context "#sorted?" do
+  describe "#sorted?" do
     let(:sorted_tree){ BinarySearchTreeNode.new(2, BinarySearchTreeNode.new(1), BinarySearchTreeNode.new(3)) }
     let(:unsorted_tree){ BinarySearchTreeNode.new(1, BinarySearchTreeNode.new(2), BinarySearchTreeNode.new(3)) }
 
