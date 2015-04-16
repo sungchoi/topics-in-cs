@@ -2,7 +2,7 @@
   "name": "data-structures",
   "private": true,
   "scripts": {
-    "test": "mocha spec --reporter spec"
+    "test": "mocha spec --recursive --reporter spec"
   },
   "devDependencies": {
     "chai": "2.x.x",
